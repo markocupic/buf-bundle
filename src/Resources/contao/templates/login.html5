@@ -1,6 +1,4 @@
 <h2>Anmelden</h2>
-
-
 <form<?php if ($this->action): ?> action="<?php echo $this->action; ?>"<?php endif; ?> id="tl_login" class="mod_login login"  method="post">
 <div class="formbody">
     <h4>Bitte melde dich mit deinem Benutzernamen und deinem Passwort an. </h4>
@@ -23,7 +21,6 @@
     <button type="submit" class="btn btn-primary"><?php echo $this->slabel; ?></button>
     {{br}}
     {{br}}
-
     {{link::7}}
 </div>
 

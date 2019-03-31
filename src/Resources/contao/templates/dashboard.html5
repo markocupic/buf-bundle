@@ -4,26 +4,27 @@
 <div class="row">
 <div class="col-lg-6">
 <h3>Beurteilen</h3>
-<div class="list-group">
-<a class="list-group-item" title="neue Beurteilung abgeben" href="<?= $this->hrefNewVoting ?>">
-    <dic class="float-left"><span class="fa fa-plus"></span>Neue Beurteilung abgeben</dic>
-    <div class="float-right"><span class="label label-success">new</span></div>
-    <div class="clearing"></div>
-</a>
+<div class="list-group d-flex">
+    <div class="list-group-item d-flex">
+        <div class="flex-grow-1 pr-2">
+            <a class="" title="neue Beurteilung abgeben" href="<?= $this->hrefNewVoting ?>">
+                <i class="fa fa-plus pr-2"></i>Neue Beurteilung abgeben
+            </a>
+        </div>
+        <div><span class="badge bg-primary">new</span></div>
+    </div>
 </div>
 
 <h3>Meine Beurteilungen</h3>
 <div class="list-group">
     <?php foreach ($this->myVotings as $voting): ?>
-       <a class="list-group-item" title="bearbeiten" href="<?= $this->hrefVotingTable . Markocupic\BufBundle\Helper::setQueryString(array('teacher' => $voting['teacherId'], 'subject' => $voting['subjectId'], 'class' => $voting['classId'])) ?>">
-           <div class="float-left"><span class="fa fa-pencil-alt"></span></div>
-           <div class="float-left">
+       <a class="list-group-item d-flex" title="bearbeiten" href="<?= $this->hrefVotingTable . Markocupic\BufBundle\Helper::setQueryString(array('teacher' => $voting['teacherId'], 'subject' => $voting['subjectId'], 'class' => $voting['classId'])) ?>">
+           <div class="pr-2"><span class="fa fa-pencil-alt"></span></div>
+           <div class="flex-grow-1 pr-2">
                <?= $voting["className"] . "{{br}}" . $voting["subjectName"] ?>{{br}}
                Kommentare: <?=  $voting["intComments"] ?>
            </div>
-           <div class="float-right"><span class="label label-info"><?= $voting['age'] ?></span></div>
-           <div class="clearing"></div>
-
+           <div class=""><span class="badge bg-warning"><?= $voting['age'] ?></span></div>
        </a>
     <?php endforeach; ?>
     <?php if(!count($this->myVotings)): ?>
@@ -38,26 +39,24 @@
 <div class="list-group">
     <?php foreach  ($this->votingsOnMyClass as $voting): ?>
     <?php if ($voting["teacherId"] == $this->User->id): ?>
-    <a class="list-group-item" title="bearbeiten" href="<?= $this->hrefVotingTable . Markocupic\BufBundle\Helper::setQueryString(array('teacher' => $voting['teacherId'], 'subject' => $voting['subjectId'], 'class' => $voting['classId'])) ?>">
-        <div class="float-left"><span class="fa fa-pencil-alt"></span></div>
-        <div class="float-left">
+    <a class="list-group-item d-flex" title="bearbeiten" href="<?= $this->hrefVotingTable . Markocupic\BufBundle\Helper::setQueryString(array('teacher' => $voting['teacherId'], 'subject' => $voting['subjectId'], 'class' => $voting['classId'])) ?>">
+        <div class="pr-2"><span class="fa fa-pencil-alt"></span></div>
+        <div class="flex-grow-1 pr-2">
             <?= $voting["className"] ."{{br}}". $voting["subjectName"] ?>{{br}}
             LP: <?= $voting['teacherFullName'] ?>{{br}}
             Kommentare: <?= $voting['intComments'] ?>
         </div>
-        <div class="float-right"><span class="label label-info"><?= $voting['age'] ?></span></div>
-        <div class="clearing"></div>
+        <div class=""><span class="badge bg-warning"><?= $voting['age'] ?></span></div>
     </a>
     <?php else: ?>
-    <a class="list-group-item" title="ansehen" href="<?= $this->hrefVotingTable . Markocupic\BufBundle\Helper::setQueryString(array('teacher' => $voting['teacherId'], 'subject' => $voting['subjectId'], 'class' => $voting['classId'])) ?>">
-        <div class="float-left"><span class="fa fa-eye"></span></div>
-        <div class="float-left">
+    <a class="list-group-item d-flex" title="ansehen" href="<?= $this->hrefVotingTable . Markocupic\BufBundle\Helper::setQueryString(array('teacher' => $voting['teacherId'], 'subject' => $voting['subjectId'], 'class' => $voting['classId'])) ?>">
+        <div class="pr-2"><span class="fa fa-eye"></span></div>
+        <div class="flex-grow-1 pr-2">
             <?= $voting["className"] ."{{br}}". $voting["subjectName"] ?>{{br}}
             LP: <?= $voting['teacherFullName'] ?>{{br}}
             Kommentare: <?= $voting['intComments'] ?>
         </div>
-        <div class="float-right"><span class="label label-default"><?= $voting['age'] ?></span></div>
-        <div class="clearing"></div>
+        <div class=""><span class="badge bg-warning"><?= $voting['age'] ?></span></div>
     </a>
     <?php endif; ?>
     <?php endforeach; ?>
@@ -77,26 +76,23 @@
 <div class="col-lg-6">
     <h3>Für den Klassenlehrer</h3>
     <div class="list-group">
-        <a class="list-group-item" title="Klassenliste bearbeiten" href="<?= $this->editClasslistLink ?>">
-            <div class="float-left"><span class="fa fa-pencil-alt"></span></div>
-            <div class="float-left">
+        <a class="list-group-item d-flex" title="Klassenliste bearbeiten" href="<?= $this->editClasslistLink ?>">
+            <div class="pr-2"><span class="fa fa-pencil-alt"></span></div>
+            <div class="">
                 Die Klassenliste bearbeiten
             </div>
-            <div class="clearing"></div>
         </a>
-        <a class="list-group-item" title="Mittelwerte und Kommentare meiner Stammklasse" href="<?= $this->averageTableLink ?>">
-            <div class="float-left"><span class="fa fa-eye"></span></div>
-            <div class="float-left">
+        <a class="list-group-item d-flex" title="Mittelwerte und Kommentare meiner Stammklasse" href="<?= $this->averageTableLink ?>">
+            <div class="pr-2"><span class="fa fa-eye"></span></div>
+            <div class="">
                 Mittelwert-Tabelle{{br}}und Lehrerkommentare meiner Stammklasse ansehen
             </div>
-            <div class="clearing"></div>
         </a>
-        <a class="list-group-item" title="Strichliste" href="<?= $this->tallySheetLink ?>">
-            <div class="float-left"><span class="fa fa-eye"></span></div>
-            <div class="float-left">
+        <a class="list-group-item d-flex" title="Strichliste" href="<?= $this->tallySheetLink ?>">
+            <div class="pr-2"><span class="fa fa-eye"></span></div>
+            <div class="">
                 Strichliste &quot;Sammelblatt&quot;{{br}}meiner Stammklasse ansehen
             </div>
-            <div class="clearing"></div>
         </a>
     </div>
 </div><!--end col-->

@@ -72,7 +72,7 @@ class Helper extends \Controller
         {
             if (trim($GLOBALS['TL_CONFIG']['buf_name_school']) != '')
             {
-                return '<li><span class="fa fa-building-o"></span> ' . $GLOBALS['TL_CONFIG']['buf_name_school'] . '</li>';
+                return '<li><span class="far fa-building"></span> ' . $GLOBALS['TL_CONFIG']['buf_name_school'] . '</li>';
             }
         }
 
