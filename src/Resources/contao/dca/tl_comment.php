@@ -139,7 +139,7 @@ $GLOBALS['TL_DCA']['tl_comment'] = array
                 $objStudent = \StudentModel::findAll(array('order' => 'class,gender,lastname,firstname'));
                 while ($objStudent->next())
                 {
-                    $options[$objStudent->id] = Markocupic\BufBundle\ClassModel::getName($objStudent->class) . '-' . $objStudent->name . $objStudent->firstname . ' ' . $objStudent->lastname;
+                    $options[$objStudent->id] = \ClassModel::getName($objStudent->class) . '-' . $objStudent->name . $objStudent->firstname . ' ' . $objStudent->lastname;
                 }
                 asort($options);
                 return $options;
