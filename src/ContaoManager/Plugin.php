@@ -26,9 +26,9 @@ class Plugin implements BundlePluginInterface
     public function getBundles(ParserInterface $parser): array
     {
         return [
-            BundleConfig::create(MarkocupicBufBundle::class)
-                ->setLoadAfter([ContaoCoreBundle::class])
-                ->setReplace(['buf']),
+            BundleConfig::create('Markocupic\BufBundle\MarkocupicBufBundle')
+                ->setLoadAfter(['Contao\CoreBundle\ContaoCoreBundle'])
+                ->setReplace(['buf']), 
         ];
     }
 }
