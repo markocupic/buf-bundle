@@ -2,18 +2,20 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  * @package BUF (Beurteilen und Fördern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
-/**
- * Run in a custom namespace, so the class can be replaced
- */
+
 namespace Markocupic\BufBundle;
 
+/**
+ * Class Cipher
+ * @package Markocupic\BufBundle
+ */
 class Cipher
 {
     protected static $strKey = 'auTzTVbNmijUhHgDCVYd';

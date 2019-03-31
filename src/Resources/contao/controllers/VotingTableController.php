@@ -2,26 +2,18 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  * @package BUF (Beurteilen und Fördern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Markocupic\BufBundle;
-
 
 /**
  * Class VotingTableController
- * Front end module buf
- * @copyright  Leo Feyer 2005-2014
- * @author     Leo Feyer <https://contao.org>
- * @package    Core
+ * @package Markocupic\BufBundle
  */
 class VotingTableController extends \Frontend
 {
@@ -31,6 +23,10 @@ class VotingTableController extends \Frontend
      */
     protected $objMainController;
 
+    /**
+     * VotingTableController constructor.
+     * @param $objMainController
+     */
     public function __construct($objMainController)
     {
         $this->objMainController = $objMainController;
@@ -67,7 +63,6 @@ class VotingTableController extends \Frontend
         $objTemplate->teacherId = \Input::get('teacher');
         $objTemplate->subjectId = \Input::get('subject');
         $objTemplate->User = $this->User;
-
 
         $objTemplate->votingTable = $objTable->parse();
 

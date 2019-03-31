@@ -1,9 +1,12 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: Marko
- * Date: 31.03.2019
- * Time: 13:53
+ * Contao Open Source CMS
+ * Copyright (c) 2005-2019 Leo Feyer
+ * @package BUF (Beurteilen und Fördern)
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
 /**
@@ -11,6 +14,15 @@
  */
 class CellPDF extends \Fpdf\Fpdf
 {
+    /**
+     * @param $w
+     * @param int $h
+     * @param string $txt
+     * @param int $border
+     * @param int $ln
+     * @param string $align
+     * @param int $fill
+     */
     function VCell($w, $h = 0, $txt = '', $border = 0, $ln = 0, $align = '', $fill = 0)
     {
         //Output a cell
@@ -141,6 +153,16 @@ class CellPDF extends \Fpdf\Fpdf
             $this->x += $w;
     }
 
+    /**
+     * @param $w
+     * @param int $h
+     * @param string $txt
+     * @param int $border
+     * @param int $ln
+     * @param string $align
+     * @param int $fill
+     * @param string $link
+     */
     function Cell($w, $h = 0, $txt = '', $border = 0, $ln = 0, $align = '', $fill = 0, $link = '')
     {
         //Output a cell

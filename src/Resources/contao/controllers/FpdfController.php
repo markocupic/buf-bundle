@@ -2,26 +2,18 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  * @package BUF (Beurteilen und Fördern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Markocupic\BufBundle;
-
 
 /**
  * Class FpdfController
- * Front end module buf
- * @copyright  Leo Feyer 2005-2014
- * @author     Leo Feyer <https://contao.org>
- * @package    Core
+ * @package Markocupic\BufBundle
  */
 class FpdfController extends \System
 {
@@ -33,7 +25,6 @@ class FpdfController extends \System
 
     public function __construct($objMainController)
     {
-
         $this->objMainController = $objMainController;
         $this->import('FrontendUser', 'User');
         $this->import('Database');
@@ -47,11 +38,9 @@ class FpdfController extends \System
      */
     public function printTable()
     {
-
         $teacher = \Input::get('teacher');
         $class = \Input::get('class');
         $subject = \Input::get('subject');
-
 
         $pdf = new FPDF('P', 'mm', 'A4');
         $pdf->setSubject('Beurteilungstabelle', true);
@@ -126,7 +115,6 @@ class FpdfController extends \System
         $pdf->Cell(10, 4, utf8_decode('H: Regeln einhalten'), 0, '', 'L');
         $pdf->Ln();
         $pdf->Ln();
-
 
         $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(10, 10, '', 0, '', 'C');
@@ -225,21 +213,17 @@ class FpdfController extends \System
         $pdf->Output();
     }
 
-    
     /**
      * print tally sheet
      */
     public function printTallySheet()
     {
-
-
         $ID_Klasse = \TeacherModel::getOwnClass();
         $ID_LP = $this->User->id;
 
         $bgcolor = array(
             'white' => array(255, 255, 255), 'grey' => array(220, 220, 220), 'red' => array(255, 150, 150)
         );
-
 
         //Wichtig um die Zeilenhöhe in der Strichliste zu ermitteln
         $MaxAnzahlStriche = array();
@@ -263,7 +247,6 @@ class FpdfController extends \System
             $cellHeight = 6;
         }
         //Ende Zeilenhöhe
-
 
         //Instanzierung
         $pdf = new \CellPDF('L', 'mm', 'A4');
@@ -331,7 +314,6 @@ class FpdfController extends \System
         $pdf->Ln();
         $pdf->Ln();
 
-
         $pdf->SetFont('Arial', 'B', 16);
         $pdf->SetX(73);
         $Array = array("A", "B", "C", "D", "E", "F", "G", "H");
@@ -354,7 +336,6 @@ class FpdfController extends \System
                 $pdf->SetFillColor($bgcolor['grey'][0], $bgcolor['grey'][0], $bgcolor['grey'][0]);
                 $color = 0;
             }
-
 
             $pdf->Cell(6, $cellHeight, $m, 1, '', 'R', 1);
             $pdf->Cell(27, $cellHeight, utf8_decode($objStudent->lastname), 1, '', 'L', 1);

@@ -1,11 +1,12 @@
 <?php
 
 /**
- * SAC Event Tool Web Plugin for Contao
- * Copyright (c) 2008-2019 Marko Cupic
- * @package sac-event-tool-bundle
- * @author Marko Cupic m.cupic@gmx.ch, 2017-2019
- * @link https://github.com/markocupic/sac-event-tool-bundle
+ * Contao Open Source CMS
+ * Copyright (c) 2005-2019 Leo Feyer
+ * @package BUF (Beurteilen und Fördern)
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
 namespace Markocupic\BufBundle\Controller;

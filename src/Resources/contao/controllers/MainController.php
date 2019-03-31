@@ -2,25 +2,18 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  * @package BUF (Beurteilen und Fördern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
- */
-
-/**
- * Run in a custom namespace, so the class can be replaced
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
 namespace Markocupic\BufBundle;
 
 /**
- * Class ModuleLogin
- * Front end module "login".
- * @copyright  Leo Feyer 2005-2014
- * @author     Leo Feyer <https://contao.org>
- * @package    Core
+ * Class MainController
+ * @package Markocupic\BufBundle
  */
 class MainController extends \Module
 {
@@ -31,6 +24,9 @@ class MainController extends \Module
      */
     protected $strTemplate = 'dashboard';
 
+    /**
+     * @return string
+     */
     public function generate()
     {
         global $objPage;

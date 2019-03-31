@@ -2,26 +2,18 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  * @package BUF (Beurteilen und Fördern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Markocupic\BufBundle;
-
 
 /**
  * Class TcpdfController
- * Front end module buf
- * @copyright  Leo Feyer 2005-2014
- * @author     Leo Feyer <https://contao.org>
- * @package    Core
+ * @package Markocupic\BufBundle
  */
 class TcpdfController extends \System
 {
@@ -33,7 +25,6 @@ class TcpdfController extends \System
 
     public function __construct($objMainController)
     {
-
         $this->objMainController = $objMainController;
         $this->import('FrontendUser', 'User');
         $this->import('Database');
@@ -73,15 +64,11 @@ class TcpdfController extends \System
 
         $pdf->AddPage();
 
-
-
         $pdf->SetFont('helvetica', '', 18);
         $pdf->SetFillColor(255, 255, 255);
 
-
         $pdf->Cell(180, 8, 'Beurteilung des Sozial- & Arbeitsverhaltens', 'B', 1, 'L', 0, '', 0);
         $pdf->Ln();
-
 
         $pdf->SetFont('helvetica', 'B', 11);
         $posY = $pdf->GetY();
@@ -114,7 +101,7 @@ class TcpdfController extends \System
         );
         $pdf->SetFont('helvetica', '', 9);
 
-        foreach($arrSkills as $skill)
+        foreach ($arrSkills as $skill)
         {
             $pdf->SetY($posY);
             $pdf->SetX(127);
@@ -122,9 +109,7 @@ class TcpdfController extends \System
             $posY += 6;
         }
 
-
         $pdf->Ln();
-
 
         $pdf->SetFont('helvetica', 'B', 16);
         $pdf->Cell(10, 10, '', 0, '', 'C');
@@ -199,7 +184,6 @@ class TcpdfController extends \System
             $posX = 128;
             for ($i = 1; $i < 9; $i++)
             {
-
                 $skill = $row['skill' . $i];
                 if ($skill === 0 || $skill == 0)
                 {
@@ -212,12 +196,12 @@ class TcpdfController extends \System
                 if ($i == 4)
                 {
                     $posX = $posX + 12;
-                    $pdf->SetX( $posX);
+                    $pdf->SetX($posX);
                 }
                 else
                 {
                     $posX = $posX + 9;
-                    $pdf->SetX( $posX );
+                    $pdf->SetX($posX);
                 }
             }
 
@@ -225,7 +209,6 @@ class TcpdfController extends \System
             $pdf->Ln();
             $pdf->SetFillColor(255, 255, 255);
         } //end while
-
 
         // Comments
         $pdf->Ln();
@@ -266,6 +249,5 @@ class TcpdfController extends \System
         //$pdf->Output('Datenblatt-' . \StudentModel::getFullName(\Input::get('student')) . '.pdf', 'D');
 
     }
-
 
 }

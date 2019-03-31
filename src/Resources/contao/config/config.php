@@ -2,19 +2,17 @@
 
 /**
  * Contao Open Source CMS
- *
- * Copyright (c) 2005-2014 Leo Feyer
- *
- * @package Core
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * Copyright (c) 2005-2019 Leo Feyer
+ * @package BUF (Beurteilen und Fördern)
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
 /**
  * Back end modules
  */
 $GLOBALS['BE_MOD']['buf'] = array(
-    // Beurteilen Und Foerdern  modules
     'class'   => array(
         'tables' => array('tl_class'),
     ),
@@ -32,6 +30,11 @@ $GLOBALS['BE_MOD']['buf'] = array(
     ),
 );
 
+/**
+ * Front end modules
+ */
+$GLOBALS['FE_MOD']['beurteilenfoerdern'] = array('mod_beurteilen_und_foerdern' => 'Markocupic\BufBundle\MainController');
+
 if (TL_MODE == 'FE')
 {
     // Javascript
@@ -45,18 +48,14 @@ if (TL_MODE == 'FE')
     $GLOBALS['TL_CSS'][] = 'bundles/markocupicbuf/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css';
     $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/markocupicbuf/bootstrap-datepicker/dist/js/bootstrap-datepicker.js';
 }
-/**
- * Front end modules
- */
-$GLOBALS['FE_MOD']['beurteilenfoerdern'] = array('mod_beurteilen_und_foerdern' => 'Markocupic\BufBundle\MainController');
 
-// replace insert tags Hook
+// Replace insert tags Hook
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Markocupic\BufBundle\Helper', 'bufReplaceInsertTags');
 
-// revise Table Hook
+// Revise Table Hook
 $GLOBALS['TL_HOOKS']['reviseTable'][] = array('Markocupic\BufBundle\Helper', 'checkForReferentialIntegrity');
 $GLOBALS['TL_HOOKS']['reviseTable'][] = array('Markocupic\BufBundle\Helper', 'bufReviseTable');
 
-// Klassenlehrer täglich per E-Mail über neue Kommentare benachrichtigen
+// Cron: Klassenlehrer täglich per E-Mail über neue Kommentare benachrichtigen
 $GLOBALS['TL_CRON']['daily']['adviceOnNewComments'] = array('Markocupic\BufBundle\Helper', 'adviceOnNewComments');
 

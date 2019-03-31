@@ -1,14 +1,15 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of Contao.
- *
- * (c) Leo Feyer
- *
- * @license LGPL-3.0-or-later
+/**
+ * Contao Open Source CMS
+ * Copyright (c) 2005-2019 Leo Feyer
+ * @package BUF (Beurteilen und Fördern)
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
+
+declare(strict_types=1);
 
 namespace Markocupic\BufBundle\ContaoManager;
 

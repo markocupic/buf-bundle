@@ -2,25 +2,18 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
- * @package BUF (Beurteilen und F�rdern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * Copyright (c) 2005-2019 Leo Feyer
+ * @package BUF (Beurteilen und Fördern)
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Markocupic\BufBundle;
 
-
 /**
- * Created by PhpStorm.
- * User: Marko
- * Date: 16.04.2016
- * Time: 11:01
+ * Class PHPWordController
+ * @package Markocupic\BufBundle
  */
 class PHPWordController extends \System
 {
@@ -30,23 +23,23 @@ class PHPWordController extends \System
      */
     protected $objMainController;
 
+    /**
+     * PHPWordController constructor.
+     * @param $objMainController
+     */
     public function __construct($objMainController)
     {
-
         $this->objMainController = $objMainController;
         $this->import('FrontendUser', 'User');
         $this->import('Database');
         return parent::__construct();
-
     }
-
 
     /**
      *
      */
     public function printDataSheet()
     {
-
         // https://github.com/DerekMarcinyshyn/phpword/blob/master/samples/Sample_07_TemplateCloneRow.php
         // https://github.com/hscstudio/syawwal/blob/master/vendor/phpoffice/phpword/samples/resources/Sample_07_TemplateCloneRow.docx
 
@@ -54,7 +47,6 @@ class PHPWordController extends \System
         // Variables on different parts of document
         $templateProcessor->setValue('class', \StudentModel::getClassnameFromStudentId(\Input::get('student')));
         $templateProcessor->setValue('name', \StudentModel::getFullName(\Input::get('student')));
-
 
         $arrSkill = $this->getSkill(\Input::get('student'));
 
@@ -66,7 +58,6 @@ class PHPWordController extends \System
         $templateProcessor->setValue('f', $arrSkill['skill_6']);
         $templateProcessor->setValue('g', $arrSkill['skill_7']);
         $templateProcessor->setValue('h', $arrSkill['skill_8']);
-
 
         // Only collect comments of the selected time span
         $timeRange = $this->User->showCommentsNotOlderThen * 30 * 24 * 3600;
@@ -112,7 +103,6 @@ class PHPWordController extends \System
             $comment = preg_replace('~\R~u', '</w:t><w:br/><w:t>', $comment);
             $templateProcessor->setValue('loopComment#' . $row, $comment);
 
-
             $prevId = $currentId;
         }
 
@@ -132,7 +122,6 @@ class PHPWordController extends \System
      */
     public function printAverageTable()
     {
-
         $class = \TeacherModel::getOwnClass();
 
         // https://github.com/DerekMarcinyshyn/phpword/blob/master/samples/Sample_07_TemplateCloneRow.php
@@ -167,7 +156,6 @@ class PHPWordController extends \System
 
         // Set date
         $templateProcessor->setValue('date', \Date::parse('d.m.Y'));
-
 
         $tempFolder = new \Folder('files/buf/tmp');
         $tempFolder->purge();

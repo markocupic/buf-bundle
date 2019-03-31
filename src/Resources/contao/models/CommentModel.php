@@ -2,24 +2,18 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  * @package BUF (Beurteilen und Fördern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Contao;
 
 /**
- * Reads and writes classes
- * @package   Models
- * @author    Leo Feyer <https://github.com/leofeyer>
- * @copyright Leo Feyer 2005-2014
+ * Class CommentModel
+ * @package Contao
  */
 class CommentModel extends \Model
 {
@@ -41,7 +35,6 @@ class CommentModel extends \Model
         $objDb = \Database::getInstance()->prepare("SELECT * FROM tl_comment WHERE student=? AND teacher=? AND subject=?")
             ->execute($studentId, $teacherId, $subjectId);
         return CommentModel::findMultipleByIds($objDb->fetchEach('id'));
-
     }
 
     /**
@@ -88,7 +81,6 @@ class CommentModel extends \Model
             }
         }
 
-
         return $objModal->parse();
     }
 
@@ -115,10 +107,8 @@ class CommentModel extends \Model
      */
     public static function getLastChange($intTeacher, $intSubject, $intClass)
     {
-
         $objVoting = \Database::getInstance()->prepare('SELECT * FROM tl_comment WHERE teacher = ? AND subject = ? AND student IN (SELECT id FROM tl_student WHERE class = ?) ORDER BY tstamp DESC LIMIT 0,1')
             ->execute($intTeacher, $intSubject, $intClass);
-
 
         if ($objVoting->numRows)
         {

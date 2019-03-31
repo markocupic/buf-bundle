@@ -2,28 +2,18 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  * @package BUF (Beurteilen und Fördern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
- */
-
-
-/**
- * Run in a custom namespace, so the class can be replaced
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
 namespace Markocupic\BufBundle;
 
-
 /**
  * Class DashboardController
- *
- * Front end module buf
- * @copyright  Leo Feyer 2005-2014
- * @author     Leo Feyer <https://contao.org>
- * @package    Core
+ * @package Markocupic\BufBundle
  */
 class DashboardController extends \Frontend
 {
@@ -50,7 +40,6 @@ class DashboardController extends \Frontend
         $objTemplate->hrefNewVoting = $this->generateFrontendUrl($objPage->row(), '/do/start_new_voting');
         $objTemplate->hrefVotingTable = $this->generateFrontendUrl($objPage->row(), '/do/voting_table');
 
-
         // get all votings of the current user
         $user_id = $this->User->id;
         $arrVotings = [];
@@ -66,14 +55,14 @@ class DashboardController extends \Frontend
             $age = round((time() - $lastChange) / 86400, 0);
             $arrVotings[$objDb->teacherId . '-' . $objDb->subjectId . '-' . $objDb->classId] = array(
                 'teacherFullName' => \TeacherModel::getFullName($objDb->teacherId),
-                'teacherId' => $objDb->teacherId,
-                'subjectId' => $objDb->subjectId,
-                'subjectName' => \SubjectModel::getName($objDb->subjectId),
-                'classId' => $objDb->classId,
-                'className' => \ClassModel::getName($objDb->classId),
-                'lastChange' => $lastChange,
-                'age' => $age == 0 ? 'heute' : sprintf('vor %s d', $age),
-                'intComments' => \CommentModel::countCommentsFromVotingTable($objDb->classId, $objDb->teacherId, $objDb->subjectId)
+                'teacherId'       => $objDb->teacherId,
+                'subjectId'       => $objDb->subjectId,
+                'subjectName'     => \SubjectModel::getName($objDb->subjectId),
+                'classId'         => $objDb->classId,
+                'className'       => \ClassModel::getName($objDb->classId),
+                'lastChange'      => $lastChange,
+                'age'             => $age == 0 ? 'heute' : sprintf('vor %s d', $age),
+                'intComments'     => \CommentModel::countCommentsFromVotingTable($objDb->classId, $objDb->teacherId, $objDb->subjectId)
             );
         }
 
@@ -96,26 +85,23 @@ class DashboardController extends \Frontend
                     $age = round((time() - $lastChange) / 86400, 0);
                     $arrVotings[$teacherId . '-' . $subjectId . '-' . $classId] = array(
                         'teacherFullName' => \TeacherModel::getFullName($teacherId),
-                        'teacherId' => $teacherId,
-                        'subjectId' => $subjectId,
-                        'subjectName' => \SubjectModel::getName($subjectId),
-                        'classId' => $classId,
-                        'className' => \ClassModel::getName($classId),
-                        'lastChange' => $lastChange,
-                        'age' => $age == 0 ? 'heute' : sprintf('vor %s d', $age),
-                        'intComments' => \CommentModel::countCommentsFromVotingTable($classId, $teacherId, $subjectId)
+                        'teacherId'       => $teacherId,
+                        'subjectId'       => $subjectId,
+                        'subjectName'     => \SubjectModel::getName($subjectId),
+                        'classId'         => $classId,
+                        'className'       => \ClassModel::getName($classId),
+                        'lastChange'      => $lastChange,
+                        'age'             => $age == 0 ? 'heute' : sprintf('vor %s d', $age),
+                        'intComments'     => \CommentModel::countCommentsFromVotingTable($classId, $teacherId, $subjectId)
                     );
                 }
             }
         }
 
-
-        usort($arrVotings, function ($a, $b)
-        {
+        usort($arrVotings, function ($a, $b) {
             return strcmp($a['className'], $b['className']);
         });
         $objTemplate->myVotings = $arrVotings;
-
 
         $arrVotings = [];
         // get all votings of the current class
@@ -136,14 +122,14 @@ class DashboardController extends \Frontend
                 $age = round((time() - $lastChange) / 86400, 0);
                 $arrVotings[$objDb->teacherId . '-' . $objDb->subjectId . '-' . $objDb->classId] = array(
                     'teacherFullName' => \TeacherModel::getFullName($objDb->teacherId),
-                    'teacherId' => $objDb->teacherId,
-                    'subjectId' => $objDb->subjectId,
-                    'subjectName' => \SubjectModel::getName($objDb->subjectId),
-                    'classId' => $objDb->classId,
-                    'className' => \ClassModel::getName($objDb->classId),
-                    'lastChange' => $lastChange,
-                    'age' => $age == 0 ? 'heute' : sprintf('vor %s d', $age),
-                    'intComments' => \CommentModel::countCommentsFromVotingTable($objDb->classId, $objDb->teacherId, $objDb->subjectId)
+                    'teacherId'       => $objDb->teacherId,
+                    'subjectId'       => $objDb->subjectId,
+                    'subjectName'     => \SubjectModel::getName($objDb->subjectId),
+                    'classId'         => $objDb->classId,
+                    'className'       => \ClassModel::getName($objDb->classId),
+                    'lastChange'      => $lastChange,
+                    'age'             => $age == 0 ? 'heute' : sprintf('vor %s d', $age),
+                    'intComments'     => \CommentModel::countCommentsFromVotingTable($objDb->classId, $objDb->teacherId, $objDb->subjectId)
                 );
             }
             // Get all Comments Grouped by subjectId-teacherId
@@ -160,24 +146,22 @@ class DashboardController extends \Frontend
                     $age = round((time() - $lastChange) / 86400, 0);
                     $arrVotings[$teacherId . '-' . $subjectId . '-' . $classId] = array(
                         'teacherFullName' => \TeacherModel::getFullName($teacherId),
-                        'teacherId' => $teacherId,
-                        'subjectId' => $subjectId,
-                        'subjectName' => \SubjectModel::getName($subjectId),
-                        'classId' => $classId,
-                        'className' => \ClassModel::getName($classId),
-                        'lastChange' => $lastChange,
-                        'age' => $age == 0 ? 'heute' : sprintf('vor %s d', $age),
-                        'intComments' => \CommentModel::countCommentsFromVotingTable($classId, $teacherId, $subjectId)
+                        'teacherId'       => $teacherId,
+                        'subjectId'       => $subjectId,
+                        'subjectName'     => \SubjectModel::getName($subjectId),
+                        'classId'         => $classId,
+                        'className'       => \ClassModel::getName($classId),
+                        'lastChange'      => $lastChange,
+                        'age'             => $age == 0 ? 'heute' : sprintf('vor %s d', $age),
+                        'intComments'     => \CommentModel::countCommentsFromVotingTable($classId, $teacherId, $subjectId)
                     );
                 }
             }
-            usort($arrVotings, function ($a, $b)
-            {
+            usort($arrVotings, function ($a, $b) {
                 return strcmp($a['teacherFullName'], $b['teacherFullName']);
             });
             $objTemplate->votingsOnMyClass = $arrVotings;
         }
-
 
         //account settings link
         $url = $this->generateFrontendUrl($objPage->row(), '/do/account_settings');
@@ -195,10 +179,7 @@ class DashboardController extends \Frontend
         $url = $this->generateFrontendUrl($objPage->row(), '/do/tally_sheet');
         $objTemplate->tallySheetLink = $url;
 
-
         return $objTemplate;
-
     }
-
 
 }

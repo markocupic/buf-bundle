@@ -2,25 +2,18 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  * @package BUF (Beurteilen und Fördern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Contao;
 
 /**
- * Reads and writes subject
- *
- * @package   Models
- * @author    Leo Feyer <https://github.com/leofeyer>
- * @copyright Leo Feyer 2005-2014
+ * Class SubjectModel
+ * @package Contao
  */
 class SubjectModel extends \Model
 {
@@ -38,11 +31,11 @@ class SubjectModel extends \Model
     public static function getName($id)
     {
         $objDb = static::findByPk($id);
-        if ($objDb !== null) {
+        if ($objDb !== null)
+        {
             return $objDb->name;
         }
         return null;
     }
-
 
 }

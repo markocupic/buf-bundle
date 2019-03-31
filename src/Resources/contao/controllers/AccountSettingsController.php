@@ -2,26 +2,18 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  * @package BUF (Beurteilen und Fördern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Markocupic\BufBundle;
-
 
 /**
  * Class AccountSettingsController
- * Front end module buf
- * @copyright  Leo Feyer 2005-2014
- * @author     Leo Feyer <https://contao.org>
- * @package    Core
+ * @package Markocupic\BufBundle
  */
 class AccountSettingsController extends \Frontend
 {
@@ -49,13 +41,11 @@ class AccountSettingsController extends \Frontend
         $this->import('FrontendUser', 'User');
         $objTeacher = \TeacherModel::findByPk($this->User->id);
 
-        if ($_SESSION['submitted']) {
+        if ($_SESSION['submitted'])
+        {
             unset($_SESSION['submitted']);
             $objTemplate->submitted = true;
         }
-
-
-
 
         /** EmailField **/
         $widget = new \TextField();
@@ -66,18 +56,21 @@ class AccountSettingsController extends \Frontend
         $widget->placeholder = 'vorname.nachname@ettiswil.educanet2.ch';
         $widget->mandatory = true;
         $widget->rgxp = 'email';
-        if ($_POST && \Input::post('FORM_SUBMIT') == 'tl_member_account_settings') {
+        if ($_POST && \Input::post('FORM_SUBMIT') == 'tl_member_account_settings')
+        {
             $widget->validate();
-            if (!$widget->hasErrors()) {
+            if (!$widget->hasErrors())
+            {
                 $set['email'] = $widget->value;
                 $submitted = true;
-            } else {
+            }
+            else
+            {
                 $hasErrors = true;
             }
         }
         $objTemplate->emailLabel = $widget->generateLabel();
         $objTemplate->email = $widget->generateWithError(true);
-
 
         /** PasswordField **/
         $widget = new \Password();
@@ -85,12 +78,16 @@ class AccountSettingsController extends \Frontend
         $widget->name = 'password';
         $widget->label = 'Passwort';
         $widget->placeholder = '********';
-        if ($_POST && \Input::post('FORM_SUBMIT') == 'tl_member_password_settings') {
+        if ($_POST && \Input::post('FORM_SUBMIT') == 'tl_member_password_settings')
+        {
             $widget->validate();
-            if (!$widget->hasErrors()) {
+            if (!$widget->hasErrors())
+            {
                 $set['password'] = $widget->value;
                 $submitted = true;
-            } else {
+            }
+            else
+            {
                 $hasErrors = true;
             }
         }
@@ -100,23 +97,25 @@ class AccountSettingsController extends \Frontend
         $objTemplate->confirmation = $widget->generateConfirmation();
 
         /** adviceOnNewComments **/
-        if ($objTeacher->adviceOnNewComments) {
+        if ($objTeacher->adviceOnNewComments)
+        {
             $objTemplate->adviceOnNewCommentsChecked = ' checked';
         }
 
-        if ($_POST && \Input::post('FORM_SUBMIT') == 'tl_member_account_settings') {
+        if ($_POST && \Input::post('FORM_SUBMIT') == 'tl_member_account_settings')
+        {
             $set['adviceOnNewComments'] = \Input::post('adviceOnNewComments');
             $submitted = true;
         }
 
-
-        if($_POST)
+        if ($_POST)
         {
             $_SESSION['FORM_SUBMIT'] = \Input::post('FORM_SUBMIT');
         }
 
         // Reload page
-        if ($submitted && !$hasErrors && count($set)) {
+        if ($submitted && !$hasErrors && count($set))
+        {
             \Database::getInstance()->prepare('UPDATE tl_member %s WHERE id=?')->set($set)->execute($objTeacher->id);
             $_SESSION['submitted'] = true;
             $this->reload();
@@ -125,12 +124,10 @@ class AccountSettingsController extends \Frontend
         $objTemplate->tl_form_submit = $_SESSION['FORM_SUBMIT'] ? $_SESSION['FORM_SUBMIT'] : 'tl_account_settings';
         unset($_SESSION['FORM_SUBMIT']);
 
-
         $widget->value = $objTeacher->adviceOnNewComments;
 
         $objTemplate->adviceOnNewCommentsLabel = $widget->generateLabel();
         $objTemplate->adviceOnNewComments = $widget->parse();
-
 
         // other properties
         $objTemplate->username = $objTeacher->username;

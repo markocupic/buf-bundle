@@ -2,24 +2,18 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  * @package BUF (Beurteilen und Fördern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Contao;
 
 /**
- * Reads and writes classes
- * @package   Models
- * @author    Leo Feyer <https://github.com/leofeyer>
- * @copyright Leo Feyer 2005-2014
+ * Class TeacherModel
+ * @package Contao
  */
 class TeacherModel extends \Model
 {
@@ -36,8 +30,10 @@ class TeacherModel extends \Model
     public static function isClassTeacher()
     {
         $objUser = \System::importStatic('FrontendUser');
-        if ($objUser->isClassTeacher) {
-            if ($objUser->class > 0) {
+        if ($objUser->isClassTeacher)
+        {
+            if ($objUser->class > 0)
+            {
                 return $objUser->class;
             }
         }
@@ -49,7 +45,8 @@ class TeacherModel extends \Model
      */
     public static function getOwnClass()
     {
-        if (static::isClassTeacher()) {
+        if (static::isClassTeacher())
+        {
             return static::isClassTeacher();
         }
         return null;
@@ -62,11 +59,11 @@ class TeacherModel extends \Model
     public static function getFullName($id)
     {
         $objDb = static::findByPk($id);
-        if ($objDb !== null) {
+        if ($objDb !== null)
+        {
             return $objDb->firstname . ' ' . $objDb->lastname;
         }
         return null;
     }
-
 
 }

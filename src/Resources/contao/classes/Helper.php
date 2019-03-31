@@ -2,18 +2,23 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  * @package BUF (Beurteilen und Fördern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
 /**
  * Run in a custom namespace, so the class can be replaced
  */
+
 namespace Markocupic\BufBundle;
 
+/**
+ * Class Helper
+ * @package Markocupic\BufBundle
+ */
 class Helper extends \Controller
 {
 
@@ -31,7 +36,7 @@ class Helper extends \Controller
                 if ($objTeacher->adviceOnNewComments && $objTeacher->isClassTeacher && $objTeacher->class > 0)
                 {
                     $arrMsg = array();
-                    $objCom = \Database::getInstance()->prepare('SELECT * FROM tl_comment WHERE tl_comment.student IN (SELECT id FROM tl_student WHERE tl_student.class=? AND tl_student.disable=?) AND tl_comment.adviced=? ORDER BY tl_comment.student')->execute($objTeacher->class,'','');
+                    $objCom = \Database::getInstance()->prepare('SELECT * FROM tl_comment WHERE tl_comment.student IN (SELECT id FROM tl_student WHERE tl_student.class=? AND tl_student.disable=?) AND tl_comment.adviced=? ORDER BY tl_comment.student')->execute($objTeacher->class, '', '');
                     while ($objCom->next())
                     {
                         $arrMsg[] = array(
@@ -57,7 +62,6 @@ class Helper extends \Controller
         }
 
         \Database::getInstance()->prepare('UPDATE tl_comment %s')->set(array('adviced' => true))->execute();
-
     }
 
     /**
@@ -155,8 +159,6 @@ class Helper extends \Controller
      */
     public static function checkForReferentialIntegrity($table = '', $new_records = '', $parent_table = '', $child_tables = '')
     {
-
-
         $reload = false;
 
         $db = \Database::getInstance();
@@ -195,7 +197,6 @@ class Helper extends \Controller
                     continue;
                 }
 
-
                 // Check for a valid tablename
                 if ($db->tableExists($ptable) === false)
                 {
@@ -229,7 +230,6 @@ class Helper extends \Controller
                 }
             }
         }
-
 
         // Delete all records of the child table that are not related to the current table
         $arrCtable = $GLOBALS['TL_DCA'][$table]['config']['buf_ctable'];
@@ -321,8 +321,6 @@ class Helper extends \Controller
      */
     public static function bufReviseTable($table = '', $new_records = '', $parent_table = '', $child_tables = '')
     {
-
-
         $db = \Database::getInstance();
 
         // delete empty comments
@@ -339,7 +337,6 @@ class Helper extends \Controller
                 }
             }
         }
-
 
         // at minimum one skill must be > 0
         $objStmt = $db->execute('DELETE FROM tl_voting WHERE (skill1 + skill2 + skill3 + skill4 + skill5 + skill6 + skill7 + skill8) < 1');
@@ -408,26 +405,29 @@ class Helper extends \Controller
     {
         $encode = true;
         $blnEncode = false;
-        if (!is_array($arrItems) || !count($arrItems)) {
+        if (!is_array($arrItems) || !count($arrItems))
+        {
             return '';
         }
         ksort($arrItems);
 
         $queryStr = '?';
 
-        foreach ($arrItems as $k => $v) {
-            if ($v == '') {
+        foreach ($arrItems as $k => $v)
+        {
+            if ($v == '')
+            {
                 continue;
             }
             $queryStr .= '&' . $k . '=' . $v;
-
         }
 
         $queryStr = str_replace('?&', '?', $queryStr);
         $queryStr = ampersand($queryStr, $blnEncode);
 
         // encode query
-        if ($GLOBALS['TL_CONFIG']['buf_encode_params']) {
+        if ($GLOBALS['TL_CONFIG']['buf_encode_params'])
+        {
             $queryStr = str_replace('?', '', $queryStr);
             $enc = Cipher::encrypt($queryStr);
             $queryStr = '?vars=' . $enc;

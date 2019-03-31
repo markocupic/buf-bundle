@@ -2,24 +2,18 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (c) 2005-2014 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  * @package BUF (Beurteilen und Fördern)
- * @author Marko Cupic m.cupic@gmx.ch, 2014
- * @link    https://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * @author Marko Cupic m.cupic@gmx.ch, 2014-2019
+ * @link    https://github.com/markocupic/buf-bundle
+ * @license MIT
  */
 
-
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace Contao;
 
 /**
- * Reads and writes classes
- * @package   Models
- * @author    Leo Feyer <https://github.com/leofeyer>
- * @copyright Leo Feyer 2005-2014
+ * Class VotingModel
+ * @package Contao
  */
 class VotingModel extends \Model
 {
@@ -30,7 +24,6 @@ class VotingModel extends \Model
      */
     protected static $strTable = 'tl_voting';
 
-
     /**
      * @param $classId
      * @param $subjectId
@@ -39,13 +32,12 @@ class VotingModel extends \Model
      */
     public static function getRows($classId, $subjectId, $teacherId)
     {
-
         $objUser = \System::importStatic('FrontendUser');
         $tolerance = $objUser->deviation;
 
         $arr_datensaetze = array();
 
-        $objStudent = \Database::getInstance()->prepare('SELECT id, lastname, firstname FROM tl_student WHERE class=? AND disable=? ORDER BY gender DESC,lastname, firstname')->execute($classId,'');
+        $objStudent = \Database::getInstance()->prepare('SELECT id, lastname, firstname FROM tl_student WHERE class=? AND disable=? ORDER BY gender DESC,lastname, firstname')->execute($classId, '');
         while ($objStudent->next())
         {
             $m = 'student_' . $objStudent->id;
@@ -132,7 +124,6 @@ class VotingModel extends \Model
                         "date"      => \Date::parse('d.m.Y', $tstamp),
                         "tstamp"    => $tstamp,
                     );
-
                 }
                 //end for
             }
@@ -172,7 +163,6 @@ class VotingModel extends \Model
      */
     public static function deleteRowOrCol($mode, $colOrRow, $teacher, $subject, $class)
     {
-
         $objUser = \System::importStatic('FrontendUser');
 
         if ($objUser->id == $teacher)
@@ -186,7 +176,6 @@ class VotingModel extends \Model
 
             if ($mode == 'delete_col')
             {
-
                 $set = array('tstamp' => time());
                 $set['skill' . $colOrRow] = '0';
                 \Database::getInstance()->prepare('UPDATE tl_voting %s WHERE teacher=? AND subject=? AND student = ANY (SELECT id FROM tl_student WHERE class=?)')->set($set)->execute($teacher, $subject, $class);
@@ -210,7 +199,6 @@ class VotingModel extends \Model
      */
     public static function update($student, $teacher, $subject, $skill, $value = 0)
     {
-
         $objUser = \System::importStatic('FrontendUser');
         if (intval($teacher) == $objUser->id)
         {
@@ -219,10 +207,10 @@ class VotingModel extends \Model
             if (preg_match('/^[0-4]{0,1}$/', $value))
             {
                 $objVoting = \VotingModel::find(array(
-                        'column' => array('tl_voting.teacher=?', 'tl_voting.student=?', 'tl_voting.subject=?'),
-                        'value'  => array($teacher, $student, $subject),
-                        'limit'  => 1,
-                    ));
+                    'column' => array('tl_voting.teacher=?', 'tl_voting.student=?', 'tl_voting.subject=?'),
+                    'value'  => array($teacher, $student, $subject),
+                    'limit'  => 1,
+                ));
 
                 if ($objVoting !== null)
                 {
@@ -263,7 +251,6 @@ class VotingModel extends \Model
      */
     public static function getInfoBox($studentId, $skillId)
     {
-
         if (!\TeacherModel::getOwnClass())
         {
             return false;
@@ -285,22 +272,18 @@ class VotingModel extends \Model
                     $objModal->student = \StudentModel::findByPk($studentId)->firstname . ' ' . \StudentModel::findByPk($studentId)->lastname;
                 }
                 $rows .= '<tr><td><strong><span class="red strong">' . $objVoting->$skill . '&nbsp;</span></strong></td><td class="green strong">&nbsp;' . \SubjectModel::findByPk($objVoting->subject)->acronym . '&nbsp;</td><td class="strong">&nbsp;' . substr(\TeacherModel::findByPk($objVoting->teacher)->firstname, 0, 1) . '. ' . \TeacherModel::findByPk($objVoting->teacher)->lastname . '</td></tr>';
-
             }
             $objModal->rows = $rows;
             $html = $objModal->parse();
             return $html;
         }
-
     }
-
 
     /**
      * @return bool
      */
     public static function isOwner()
     {
-
         $objUser = \System::importStatic('FrontendUser');
         if ($objUser->id == \Input::get('teacher'))
         {
@@ -317,7 +300,6 @@ class VotingModel extends \Model
      */
     public static function getAverage($intStudent, $intCol, $precision = 0)
     {
-
         $objAverage = \Database::getInstance()->prepare("SELECT AVG(skill$intCol) AS 'average' FROM tl_voting WHERE student = ? AND skill$intCol > 0")->execute($intStudent);
         $rowAverage = $objAverage->fetchAssoc();
         // if the average is 1.5 or 2.5 or 3.5, then always round down in favor of the student
@@ -334,7 +316,6 @@ class VotingModel extends \Model
      */
     public static function getLastChange($intTeacher, $intSubject = null, $intClass = null, $intStudent = null, $mode = 'table')
     {
-
         if ($mode == 'table')
         {
             $objVoting = \Database::getInstance()->prepare('SELECT * FROM tl_voting WHERE teacher = ? AND subject = ? AND student IN (SELECT id FROM tl_student WHERE class = ?) ORDER BY tstamp DESC LIMIT 0,1')->execute($intTeacher, $intSubject, $intClass);
@@ -379,7 +360,6 @@ class VotingModel extends \Model
         return $array;
     }
 
-
     /**
      * @param $teacherId
      * @param int $startTstamp
@@ -422,6 +402,5 @@ class VotingModel extends \Model
         }
         return array_values($arrDat);
     }
-
 
 }
