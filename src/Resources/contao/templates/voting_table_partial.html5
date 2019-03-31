@@ -4,7 +4,7 @@
         <td class="name_col width14">&nbsp;</td>
         <td class="name_col width15">&nbsp;</td>
         <?php for ($i = 1; $i < 9; $i++): ?>
-            <td id="skillHead_<?php echo $i; ?>" style="background-image: url('files/buf/images/gd/images.php?bgcolor=bright&amp;kriterium=<?php echo $i; ?>'); ?>" class="width7 description col_<?php echo $i; ?>">&nbsp;</td>
+            <td id="skillHead_<?php echo $i; ?>" style="background-image: url('bundles/markocupicbuf/gd/images.php?bgcolor=bright&amp;kriterium=<?php echo $i; ?>'); ?>" class="width7 description col_<?php echo $i; ?>">&nbsp;</td>
         <?php endfor; ?>
         <td class="edit_col width5">&nbsp;</td>
         <td class="delete_col width5">&nbsp;</td>

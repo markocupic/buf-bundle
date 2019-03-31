@@ -549,7 +549,7 @@
             var i = 0;
             $('td.description').each(function () {
                 i++;
-                $(this).css({'background-image': "url('files/buf/images/gd/images.php?bgcolor=bright&kriterium=" + i + "')"});
+                $(this).css({'background-image': "url('bundles/markocupicbuf/gd/images.php?bgcolor=bright&kriterium=" + i + "')"});
             });
 
             var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;

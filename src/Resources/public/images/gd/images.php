@@ -6,10 +6,10 @@ $Kriterium=$_GET["kriterium"];
 //Hintergrundfarbe
 $bgcolor = $_GET["bgcolor"] == 'dark' ? 'f5f5f5' : 'ffffff';
 $array_Kriterien = array("",
-	"selbst‰ndig arbeiten",
-	"sorgf‰ltig arbeiten",
+	"selbst√§ndig arbeiten",
+	"sorgf√§ltig arbeiten",
 	"sich aktiv am***Unterricht beteiligen",
-	"eigene F‰higkeiten***einsch‰tzen",
+	"eigene F√§higkeiten***einsch√§tzen",
 	"mit anderen***zusammenarbeiten",
 	"konstruktiv mit***Kritik umgehen",
 	"respektvoll mit anderen***umgehen",
@@ -83,17 +83,17 @@ foreach($arr_text as $Zeile){
 rsort($arr_laengsteZeile);
 $imw = $arr_laengsteZeile[0] + 2*$paddingX;
 
-//Bildhˆhe
+//Bildh√∂he
 $imh = 2*$paddingY + ($Anz_Zeilen*$font_size*$lineheight);
 
-// Bild erzeugen und tempor‰r speichern
+// Bild erzeugen und tempor√§r speichern
 $image = imagecreate($imw, $imh);
 
 // Hintergrundfarbe definieren (RGB)
 $bgcolor = hex2dec($bgcolor);
 imagecolorallocate($image, $bgcolor["r"], $bgcolor["g"], $bgcolor["b"]);
 
-//Fals Hintergrund transparent sein soll... vertr‰gt sich jedoch nicht mit imagerotate()
+//Fals Hintergrund transparent sein soll... vertr√§gt sich jedoch nicht mit imagerotate()
 //imagecolortransparent($image, $bgcolor);
 
 //Textfarbe definieren (RGB)
@@ -117,7 +117,7 @@ $image = imagerotate($image,90,1);
 header('Content-type: ' . $mime_type) ;
 imagepng($image);
 
-//Falls erw¸nscht Bild im cache Ordner speichern
+//Falls erw√ºnscht Bild im cache Ordner speichern
 if($cache_images === TRUE)
 {
     imagepng($image,$cache_filename) ;
