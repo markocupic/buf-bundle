@@ -41,7 +41,7 @@ $GLOBALS['BE_MOD']['buf'] = array(
 // Klassenlehrer über neue Kommentare benachrichtigen
 if ($_GET['adviceOnNewComments'] == 'true')
 {
-    $GLOBALS['TL_HOOKS']['generatePage'][] = array('Markocupic\Buf\BufHelper', 'adviceOnNewComments');
+    $GLOBALS['TL_HOOKS']['generatePage'][] = array('Markocupic\BufBundle\BufHelper', 'adviceOnNewComments');
 }
 
 if (TL_MODE == 'FE')

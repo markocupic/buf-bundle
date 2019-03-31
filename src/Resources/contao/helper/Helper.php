@@ -6,7 +6,7 @@
  * Time: 10:36
  */
 
-namespace Markocupic\Buf\Helper;
+namespace Markocupic\BufBundle\Helper;
 
 class Helper
 {

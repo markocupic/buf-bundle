@@ -33,7 +33,7 @@
         <td class="<?php echo ($i%2 != 0 ? "odd" : "even"); ?>"><?php echo (round($averageValues["skill".$i],2)==0 ? "k.A." : round($averageValues["skill".$i],2)); ?></td>
 <?php endfor; ?>
         <td class="odd">
-            <a href="<?= $this->printDataSheet . Markocupic\Buf\Helper::setQueryString(array('student' => $averageValues['id'])) ?>" title="Leistungsblatt ansehen">
+            <a href="<?= $this->printDataSheet . Markocupic\BufBundle\Helper::setQueryString(array('student' => $averageValues['id'])) ?>" title="Leistungsblatt ansehen">
                 <span class="fa fa-commenting"></span>
             </a>
         </td>

@@ -305,7 +305,7 @@ class tl_voting extends Backend
      */
     public function onSubmitCallback(Contao\DC_Table $dc)
     {
-        $newRecord = Markocupic\Buf\VotingModel::findByPk($dc->id);
+        $newRecord = Markocupic\BufBundle\VotingModel::findByPk($dc->id);
         if($newRecord !== null)
         {
             $objDb = $this->Database->prepare("SELECT * FROM tl_voting WHERE teacher=? AND student=? AND subject=?")

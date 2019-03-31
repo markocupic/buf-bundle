@@ -13,7 +13,7 @@
  * Run in a custom namespace, so the class can be replaced
  */
 
-namespace Markocupic\Buf;
+namespace Markocupic\BufBundle;
 
 /**
  * Class EditClasslistController

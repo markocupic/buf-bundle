@@ -15,7 +15,7 @@
         "fpdf/fpdf": "^1.81"
     },
     "extra": {
-        "contao-manager-plugin": "Contao\\BufBundle\\ContaoManager\\Plugin"
+        "contao-manager-plugin": "Markocupic\\BufBundle\\ContaoManager\\Plugin"
     },
     "autoload": {
         "psr-4": {

@@ -9,7 +9,7 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-namespace Markocupic\Buf;
+namespace Markocupic\BufBundle;
 
 use Contao\StringUtil;
 use Contao\System;
@@ -19,7 +19,7 @@ use Contao\Frontend;
 
 /**
  * Class LoginController
- * @package Markocupic\Buf
+ * @package Markocupic\BufBundle
  */
 class LoginController extends Frontend
 {
