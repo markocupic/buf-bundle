@@ -1,7 +1,7 @@
 {
   "name": "markocupic/buf-bundle",
   "type": "contao-bundle",
-  "description": "Schüler Beurteilungstool Plugin für CMS Contao",
+  "description": "SchÃ¼ler Beurteilungstool Plugin fÃ¼r CMS Contao",
   "license": "LGPL-3.0-or-later",
   "authors": [
     {
@@ -13,7 +13,8 @@
     "php": "^7.1",
     "contao/core-bundle": "^4.7",
     "fpdf/fpdf": "^1.81",
-    "tecnickcom/tcpdf": "^6.2"
+    "tecnickcom/tcpdf": "^6.2",
+    "phpoffice/phpword": "0.16"
   },
   "extra": {
     "contao-manager-plugin": "Markocupic\\BufBundle\\ContaoManager\\Plugin"

@@ -37,10 +37,7 @@ class FpdfController extends \System
         $this->objMainController = $objMainController;
         $this->import('FrontendUser', 'User');
         $this->import('Database');
-        define('FPDF_FONTPATH', TL_ROOT . '/system/modules/buf/plugins/fpdf/font/');
-
-        // register fpdf classes
-        \ClassLoader::addClasses(array('FPDF' => 'system/modules/buf/plugins/fpdf/fpdf.php', 'CellPDF' => 'system/modules/buf/plugins/fpdf/addOns/cellpdf.php'));
+        define('FPDF_FONTPATH', TL_ROOT . '/vendor/fpdf/fpdf/src/Fpdf/font/unifont/');
 
         return parent::__construct();
     }
@@ -56,7 +53,7 @@ class FpdfController extends \System
         $subject = \Input::get('subject');
 
 
-        $pdf = new \FPDF('P', 'mm', 'A4');
+        $pdf = new FPDF('P', 'mm', 'A4');
         $pdf->setSubject('Beurteilungstabelle', true);
         $pdf->setTitle('Beurteilungstabelle');
 

@@ -18,7 +18,7 @@ $GLOBALS['TL_DCA']['tl_member']['config']['buf_ctable'][] = 'tl_voting';
 $GLOBALS['TL_DCA']['tl_member']['config']['buf_ctable'][] = 'tl_comment';
 $GLOBALS['TL_DCA']['tl_member']['config']['buf_ptable'][] = 'tl_class';
 
-$GLOBALS['TL_DCA']['tl_member']['config']['onload_callback'][] = array('BufHelper', 'onloadCallbackTlMember');
+$GLOBALS['TL_DCA']['tl_member']['config']['onload_callback'][] = array('Helper', 'onloadCallbackTlMember');
 
 
 $GLOBALS['TL_DCA']['tl_member']['fields']['isTeacher'] = array

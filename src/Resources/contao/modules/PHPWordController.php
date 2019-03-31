@@ -36,11 +36,6 @@ class PHPWordController extends \System
         $this->objMainController = $objMainController;
         $this->import('FrontendUser', 'User');
         $this->import('Database');
-        // register PhpWord class
-        \ClassLoader::addClasses(array(
-            'PhpWord' => 'composer/vendor/phpoffice/phpword/src/PhpWord/PhpWord.php',
-        ));
-
         return parent::__construct();
 
     }
@@ -55,7 +50,7 @@ class PHPWordController extends \System
         // https://github.com/DerekMarcinyshyn/phpword/blob/master/samples/Sample_07_TemplateCloneRow.php
         // https://github.com/hscstudio/syawwal/blob/master/vendor/phpoffice/phpword/samples/resources/Sample_07_TemplateCloneRow.docx
 
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('system/modules/buf/templates/PHPWord_verhaltensbeurteilung_template.docx');
+        $templateProcessor = new PhpOffice\PhpWord\TemplateProcessor('vendor/markocupic/buf-bundle/src/Resources/contao/templates/PHPWord_verhaltensbeurteilung_template.docx');
         // Variables on different parts of document
         $templateProcessor->setValue('class', \StudentModel::getClassnameFromStudentId(\Input::get('student')));
         $templateProcessor->setValue('name', \StudentModel::getFullName(\Input::get('student')));
@@ -143,7 +138,7 @@ class PHPWordController extends \System
         // https://github.com/DerekMarcinyshyn/phpword/blob/master/samples/Sample_07_TemplateCloneRow.php
         // https://github.com/hscstudio/syawwal/blob/master/vendor/phpoffice/phpword/samples/resources/Sample_07_TemplateCloneRow.docx
 
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('system/modules/buf/templates/PHPWord_mittelwerttabelle_template.docx');
+        $templateProcessor = new PhpOffice\PhpWord\TemplateProcessor('vendor/markocupic/buf-bundle/src/Resources/contao/templates/PHPWord_mittelwerttabelle_template.docx');
 
         // Replace placeholder
         $templateProcessor->setValue('class', utf8_decode(\ClassModel::getName($class)));

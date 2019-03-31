@@ -37,14 +37,7 @@ class TcpdfController extends \System
         $this->objMainController = $objMainController;
         $this->import('FrontendUser', 'User');
         $this->import('Database');
-        // register fpdf classes
-        \ClassLoader::addClasses(array(
-            'TCPDF'       => 'vendor/tecnickcom/tcpdf/tcpdf.php',
-            'TCPDF_FONTS' => 'vendor/tecnickcom/tcpdf/include/tcpdf_fonts.php',
-        ));
-
         return parent::__construct();
-
     }
 
     /**

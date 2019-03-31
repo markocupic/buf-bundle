@@ -480,7 +480,7 @@ class MainController extends \Module
         // decode, if query string is encoded
         if (\Input::get('vars') && $GLOBALS['TL_CONFIG']['buf_encode_params'])
         {
-            $plaintext_dec = \Cipher::decrypt(\Input::get('vars'));
+            $plaintext_dec = Cipher::decrypt(\Input::get('vars'));
             $arrGet = explode('&', $plaintext_dec);
             foreach ($arrGet as $chunk)
             {
@@ -493,18 +493,18 @@ class MainController extends \Module
         switch (\Input::get('do'))
         {
             case 'login':
-                $objController = new \LoginController($this);
+                $objController = new LoginController($this);
                 $objController->authenticate();
                 $this->Template = $objController->setTemplate($this->Template);
                 break;
 
             case 'dashboard':
-                $objController = new \DashboardController($this);
+                $objController = new DashboardController($this);
                 $this->Template = $objController->setTemplate($this->Template);
                 break;
 
             case 'start_new_voting':
-                $objController = new \StartNewVotingController($this);
+                $objController = new StartNewVotingController($this);
                 $this->Template = $objController->setTemplate($this->Template);
                 break;
 
@@ -524,7 +524,7 @@ class MainController extends \Module
                     $this->redirect($url);
                 }
 
-                $objController = new \VotingTableController($this);
+                $objController = new VotingTableController($this);
                 $this->Template = $objController->setTemplate($this->Template);
                 break;
 
@@ -534,7 +534,7 @@ class MainController extends \Module
                     $url = $this->generateFrontendUrl($objPage->row(), '/do/dashboard');
                     $this->redirect($url);
                 }
-                $objController = new \FpdfController($this);
+                $objController = new FpdfController($this);
                 $objController->printTable();
                 break;
 
@@ -544,9 +544,9 @@ class MainController extends \Module
                     $url = $this->generateFrontendUrl($objPage->row(), '/do/dashboard');
                     $this->redirect($url);
                 }
-                //$objController = new \FpdfController($this);
+                //$objController = new FpdfController($this);
                 //$objController->printAverageTable();
-                $objController = new \PHPWordController($this);
+                $objController = new PHPWordController($this);
                 $objController->printAverageTable();
                 break;
 
@@ -556,7 +556,7 @@ class MainController extends \Module
                     $url = $this->generateFrontendUrl($objPage->row(), '/do/dashboard');
                     $this->redirect($url);
                 }
-                $objController = new \FpdfController($this);
+                $objController = new FpdfController($this);
                 $objController->printTallySheet();
                 break;
 
@@ -567,7 +567,7 @@ class MainController extends \Module
                     $url = $this->generateFrontendUrl($objPage->row(), '/do/dashboard');
                     $this->redirect($url);
                 }
-                $objController = new \TcpdfController($this);
+                $objController = new TcpdfController($this);
                 $objController->printDataSheet();
                 break;
 
@@ -577,7 +577,7 @@ class MainController extends \Module
                     $url = $this->generateFrontendUrl($objPage->row(), '/do/dashboard');
                     $this->redirect($url);
                 }
-                $objController = new \PHPWordController($this);
+                $objController = new PHPWordController($this);
                 $objController->printDataSheet();
                 break;
 
@@ -604,7 +604,7 @@ class MainController extends \Module
                 break;
 
             case 'account_settings':
-                $objController = new \AccountSettingsController($this);
+                $objController = new AccountSettingsController($this);
                 $this->Template = $objController->setTemplate($this->Template);
                 break;
 
@@ -614,7 +614,7 @@ class MainController extends \Module
                     $url = $this->generateFrontendUrl($objPage->row(), '/do/dashboard');
                     $this->redirect($url);
                 }
-                $objController = new \EditClasslistController($this);
+                $objController = new EditClasslistController($this);
                 $this->Template = $objController->setTemplate($this->Template);
                 break;
 
@@ -624,7 +624,7 @@ class MainController extends \Module
                     $url = $this->generateFrontendUrl($objPage->row(), '/do/dashboard');
                     $this->redirect($url);
                 }
-                $objController = new \AverageTableController($this);
+                $objController = new AverageTableController($this);
                 $this->Template = $objController->setTemplate($this->Template);
                 break;
 
@@ -634,7 +634,7 @@ class MainController extends \Module
                     $url = $this->generateFrontendUrl($objPage->row(), '/do/dashboard');
                     $this->redirect($url);
                 }
-                $objController = new \TallySheetController($this);
+                $objController = new TallySheetController($this);
                 $this->Template = $objController->setTemplate($this->Template);
                 break;
         }

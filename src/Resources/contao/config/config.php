@@ -10,7 +10,6 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-
 /**
  * Back end modules
  */
@@ -41,16 +40,11 @@ $GLOBALS['BE_MOD']['buf'] = array(
 // Klassenlehrer über neue Kommentare benachrichtigen
 if ($_GET['adviceOnNewComments'] == 'true')
 {
-    $GLOBALS['TL_HOOKS']['generatePage'][] = array('Markocupic\BufBundle\BufHelper', 'adviceOnNewComments');
+    $GLOBALS['TL_HOOKS']['generatePage'][] = array('Markocupic\BufBundle\Helper', 'adviceOnNewComments');
 }
 
 if (TL_MODE == 'FE')
 {
-    /**
-     * Include the helpers
-     */
-    require TL_ROOT . '/system/modules/buf/helper/functions.php';
-
     $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/markocupicbuf/jquery/main.js';
     $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/markocupicbuf/jquery/editClasslist.js';
     $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/markocupicbuf/jquery/votingTable.js';
@@ -63,15 +57,14 @@ if (TL_MODE == 'FE')
 /**
  * Front end modules
  */
-$GLOBALS['FE_MOD']['beurteilenfoerdern'] = array('mod_beurteilen_und_foerdern' => 'MainController');
-
+$GLOBALS['FE_MOD']['beurteilenfoerdern'] = array('mod_beurteilen_und_foerdern' => 'Markocupic\BufBundle\MainController');
 
 // replace insert tags Hook
-$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('BufHelper', 'bufReplaceInsertTags');
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Markocupic\BufBundle\Helper', 'bufReplaceInsertTags');
 
 // revise Table Hook
-$GLOBALS['TL_HOOKS']['reviseTable'][] = array('BufHelper', 'checkForReferentialIntegrity');
-$GLOBALS['TL_HOOKS']['reviseTable'][] = array('BufHelper', 'bufReviseTable');
+$GLOBALS['TL_HOOKS']['reviseTable'][] = array('Markocupic\BufBundle\Helper', 'checkForReferentialIntegrity');
+$GLOBALS['TL_HOOKS']['reviseTable'][] = array('Markocupic\BufBundle\Helper', 'bufReviseTable');
 
 // lang config
 $GLOBALS['TL_LANG']['MSC']['newPasswordSet'] = 'Dein Passwort wurde aktualisiert.';
