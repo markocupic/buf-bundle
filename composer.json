@@ -1,38 +1,39 @@
 {
-    "name": "markocupic/buf-bundle",
-    "type": "contao-bundle",
-    "description": "SchÃ¼ler Beurteilungstool Plugin fÃ¼r CMS Contao",
-    "license": "LGPL-3.0-or-later",
-    "authors": [
-        {
-            "name": "Marko Cupic",
-            "homepage": "https://github.com/markocupic"
-        }
-    ],
-    "require": {
-        "php": "^7.1",
-        "contao/core-bundle": "^4.7",
-        "fpdf/fpdf": "^1.81"
-    },
-    "extra": {
-        "contao-manager-plugin": "Markocupic\\BufBundle\\ContaoManager\\Plugin"
-    },
-    "autoload": {
-        "psr-4": {
-            "Contao\\BufBundle\\": "src/"
-        },
-        "classmap": [
-            "src/Resources/contao/"
-        ],
-        "exclude-from-classmap": [
-            "src/Resources/contao/config/",
-            "src/Resources/contao/dca/",
-            "src/Resources/contao/languages/",
-            "src/Resources/contao/templates/"
-        ]
-    },
-    "support": {
-        "issues": "https://github.com/markocupic/buf-bundle/issues",
-        "source": "https://github.com/markocupic/buf-bundle/issues"
+  "name": "markocupic/buf-bundle",
+  "type": "contao-bundle",
+  "description": "Schüler Beurteilungstool Plugin für CMS Contao",
+  "license": "LGPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Marko Cupic",
+      "homepage": "https://github.com/markocupic"
     }
+  ],
+  "require": {
+    "php": "^7.1",
+    "contao/core-bundle": "^4.7",
+    "fpdf/fpdf": "^1.81",
+    "tecnickcom/tcpdf": "^6.2"
+  },
+  "extra": {
+    "contao-manager-plugin": "Markocupic\\BufBundle\\ContaoManager\\Plugin"
+  },
+  "autoload": {
+    "psr-4": {
+      "Contao\\BufBundle\\": "src/"
+    },
+    "classmap": [
+      "src/Resources/contao/"
+    ],
+    "exclude-from-classmap": [
+      "src/Resources/contao/config/",
+      "src/Resources/contao/dca/",
+      "src/Resources/contao/languages/",
+      "src/Resources/contao/templates/"
+    ]
+  },
+  "support": {
+    "issues": "https://github.com/markocupic/buf-bundle/issues",
+    "source": "https://github.com/markocupic/buf-bundle/issues"
+  }
 }
