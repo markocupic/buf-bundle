@@ -15,7 +15,7 @@
         <td class="Vertikalschrift Beurteilungsraster description width10">&nbsp;</td>
 <?php for($i=1;$i<9;$i++): ?>
 <?php if($i%2!=0){$bgcolor="dark"; $Hintergrund="odd";}else{$bgcolor="bright";$Hintergrund="even";} ?>
-        <td style="background-image: url('gdimage?bgcolor=<?php echo $bgcolor; ?>&amp;kriterium=<?php echo $i; ?>')" colspan="4" class="Vertikalschrift Beurteilungsraster description <?php echo $Hintergrund; ?>"><span>Kriterium<?php echo $i; ?></span></td>
+        <td style="background-image: url('_gdimage?bgcolor=<?php echo $bgcolor; ?>&amp;kriterium=<?php echo $i; ?>')" colspan="4" class="Vertikalschrift Beurteilungsraster description <?php echo $Hintergrund; ?>"><span>Kriterium<?php echo $i; ?></span></td>
 <?php endfor; ?>
     </tr>
     <?php echo $this->rows; ?>

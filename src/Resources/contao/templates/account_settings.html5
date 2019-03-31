@@ -25,7 +25,7 @@ Einstellungen wurden gespeichert.
                         <div class="image_container">
                             <!--<h3 style="margin-top:0;"><?= $this->UserFullname ?></h3>-->
 
-                            <img style="width:100%;max-width:200px" src="files/buf/images/avatars/profile_<?=$this->gender ?>.png"></img>
+                            <img style="width:100%;max-width:200px" src="bundles/markocupicbuf/images/avatars/profile_<?=$this->gender ?>.png"></img>
                             {{br}}
                             <p><strong>Benutzername:</strong> <?= $this->username ?></p>
                             <p><strong>Funktion:</strong> <?= $this->function ?></p>

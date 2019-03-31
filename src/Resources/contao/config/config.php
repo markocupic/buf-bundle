@@ -17,39 +17,30 @@ $GLOBALS['BE_MOD']['buf'] = array(
     // Beurteilen Und Foerdern  modules
     'class'   => array(
         'tables' => array('tl_class'),
-        'icon'   => 'bundles/markocupicbuf/images/backend/group.png',
     ),
     'student' => array(
         'tables' => array('tl_student'),
-        'icon'   => 'bundles/markocupicbuf/images/backend/user.png',
     ),
     'voting'  => array(
         'tables' => array('tl_voting'),
-        'icon'   => 'bundles/markocupicbuf/images/backend/star.png',
     ),
     'comment' => array(
         'tables' => array('tl_comment'),
-        'icon'   => 'bundles/markocupicbuf/images/backend/comments.png',
     ),
     'subject' => array(
         'tables' => array('tl_subject'),
-        'icon'   => 'bundles/markocupicbuf/images/backend/report.png',
     ),
 );
 
-// Klassenlehrer über neue Kommentare benachrichtigen
-if ($_GET['adviceOnNewComments'] == 'true')
-{
-    $GLOBALS['TL_HOOKS']['generatePage'][] = array('Markocupic\BufBundle\Helper', 'adviceOnNewComments');
-}
-
 if (TL_MODE == 'FE')
 {
+    // Javascript
     $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/markocupicbuf/jquery/main.js';
     $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/markocupicbuf/jquery/editClasslist.js';
     $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/markocupicbuf/jquery/votingTable.js';
     $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/markocupicbuf/jquery/averageTable.js';
     $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/markocupicbuf/jquery/tallySheet.js';
+
     // Datepicker
     $GLOBALS['TL_CSS'][] = 'bundles/markocupicbuf/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css';
     $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/markocupicbuf/bootstrap-datepicker/dist/js/bootstrap-datepicker.js';
@@ -66,5 +57,6 @@ $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Markocupic\BufBundle\Helper
 $GLOBALS['TL_HOOKS']['reviseTable'][] = array('Markocupic\BufBundle\Helper', 'checkForReferentialIntegrity');
 $GLOBALS['TL_HOOKS']['reviseTable'][] = array('Markocupic\BufBundle\Helper', 'bufReviseTable');
 
-// lang config
-$GLOBALS['TL_LANG']['MSC']['newPasswordSet'] = 'Dein Passwort wurde aktualisiert.';
+// Klassenlehrer täglich per E-Mail über neue Kommentare benachrichtigen
+$GLOBALS['TL_CRON']['daily']['adviceOnNewComments'] = array('Markocupic\BufBundle\Helper', 'adviceOnNewComments');
+

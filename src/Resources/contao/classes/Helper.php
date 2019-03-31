@@ -19,7 +19,7 @@ class Helper extends \Controller
 
     /**
      * Klassenlehrer benachrichtigen bei neuen Kommentaren
-     * generatePage-Hook
+     * Cron adviceOnNewComments
      */
     public function adviceOnNewComments()
     {
@@ -48,7 +48,7 @@ class Helper extends \Controller
                         $objEmailTemplate->rows = $arrMsg;
                         $objEmail->html = $objEmailTemplate->parse();
                         $objEmail->subject = 'Neue oder aktualisierte Kommentare im Bewertungstool vorhanden';
-                        $objEmail->from = 'admin@' . \Environment::get('host');
+                        $objEmail->from = 'webadmin@' . \Environment::get('host');
                         $objEmail->sendTo($objTeacher->email);
                         \System::log(\TeacherModel::getFullName($objTeacher->id) . ' wurde per email ueber neue oder veränderte Kommentare benachrichtigt.', __METHOD__, TL_GENERAL);
                     }

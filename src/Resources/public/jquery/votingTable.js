@@ -549,7 +549,7 @@
             var i = 0;
             $('td.description').each(function () {
                 i++;
-                $(this).css({'background-image': "url('gdimage?bgcolor=bright&kriterium=" + i + "')"});
+                $(this).css({'background-image': "url('_gdimage?bgcolor=bright&kriterium=" + i + "')"});
             });
 
             var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
