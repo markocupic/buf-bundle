@@ -47,9 +47,9 @@ class VotingTableController extends \Frontend
 
         // delete table href
         $arrQuery = array('teacher' => \Input::get('teacher'), 'subject' => \Input::get('subject'), 'class' => \Input::get('class'));
-        $objTemplate->hrefDeleteSkillsOnly = $this->generateFrontendUrl($objPage->row(), '/do/delete_skills_only') . setQueryString($arrQuery);
-        $objTemplate->hrefDeleteCommentsOnly = $this->generateFrontendUrl($objPage->row(), '/do/delete_comments_only') . setQueryString($arrQuery);
-        $objTemplate->hrefPrintTable = $this->generateFrontendUrl($objPage->row(), '/do/print_table') . setQueryString($arrQuery);
+        $objTemplate->hrefDeleteSkillsOnly = $this->generateFrontendUrl($objPage->row(), '/do/delete_skills_only') . Helper::setQueryString($arrQuery);
+        $objTemplate->hrefDeleteCommentsOnly = $this->generateFrontendUrl($objPage->row(), '/do/delete_comments_only') . Helper::setQueryString($arrQuery);
+        $objTemplate->hrefPrintTable = $this->generateFrontendUrl($objPage->row(), '/do/print_table') . Helper::setQueryString($arrQuery);
         $objTable = new \FrontendTemplate('voting_table_partial');
         $aRows = \VotingModel::getRows(\Input::get('class'), \Input::get('subject'), \Input::get('teacher'));
         $objTable->rows = $aRows['Datensaetze'];
@@ -61,7 +61,7 @@ class VotingTableController extends \Frontend
 
         // Delete row or col href
         $arrQuery = array('teacher' => \Input::get('teacher'), 'subject' => \Input::get('subject'), 'class' => \Input::get('class'));
-        $objTable->hrefDeleteRowOrCol = $this->generateFrontendUrl($objPage->row(), '/do/delete_row_or_col') . setQueryString($arrQuery);
+        $objTable->hrefDeleteRowOrCol = $this->generateFrontendUrl($objPage->row(), '/do/delete_row_or_col') . Helper::setQueryString($arrQuery);
 
         $objTemplate->classId = \Input::get('class');
         $objTemplate->teacherId = \Input::get('teacher');

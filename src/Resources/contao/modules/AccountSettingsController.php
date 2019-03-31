@@ -146,7 +146,7 @@ class AccountSettingsController extends \Frontend
         $objTemplate->slabel1 = specialchars($GLOBALS['TL_LANG']['MSC']['saveData']);
         $objTemplate->slabel2 = 'Passwort speichern';
 
-        $objTemplate->action = $this->generateFrontendUrl($objPage->row(), '/do/account_settings') . setQueryString(array('act' => 'set_password'));
+        $objTemplate->action = $this->generateFrontendUrl($objPage->row(), '/do/account_settings') . Helper::setQueryString(array('act' => 'set_password'));
         $objTemplate->enctype = 'application/x-www-form-urlencoded';
 
         return $objTemplate;

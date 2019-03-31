@@ -51,7 +51,7 @@ class StartNewVotingController extends \Frontend
             {
                 $url = $this->generateFrontendUrl($objPage->row(), '/do/voting_table');
                 $arrQuery = array('teacher' => $this->User->id, 'subject' => \Input::post('subject'), 'class' => \Input::post('class'));
-                $url .= setQueryString($arrQuery);
+                $url .= Helper::setQueryString($arrQuery);
                 $this->redirect($url);
             }
         }

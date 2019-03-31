@@ -98,7 +98,7 @@ class BufHelper extends \Controller
 
             if (FE_USER_LOGGED_IN)
             {
-                $url = \Frontend::generateFrontendUrl($page->row(), '/do/login') . setQueryString(array('act' => 'logout'));
+                $url = \Frontend::generateFrontendUrl($page->row(), '/do/login') . Helper::setQueryString(array('act' => 'logout'));
                 return '<li><a href="' . $url . '" title="Abmelden"><span class="fa fa-sign-out-alt"></span></a></li>';
             }
             else
