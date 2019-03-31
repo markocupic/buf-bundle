@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="Generator" content="Contao Open Source CMS">
+  <title>Neue Kommentare vorhanden</title>
+    <style type="text/css"><!--
+    body {
+      background-color: #ccc;
+    }
+    .wrapper {
+      margin:0 auto;
+      position: relative;
+      width: 80%;
+      border: 15px solid #fff;
+      background-color:#fff;
+    }
+    .header {
+      padding: 10px 0;
+    }
+    .header .header-left{
+      float:left;
+      width: 80%;
+    }
+    .header .header-left h1{
+      font-size: 30px;
+      margin:0;
+    }
+    .header .header-right{
+      float:left;
+      width: 20%;
+    }
+    .clearing{
+      clear:both;
+    }
+    .image-container{
+      max-width: 100%;
+    }
+    .image-container img{
+      max-width: 100%;
+    }
+    .main{
+      border-top: 15px solid #ccc;
+      padding-top:15px;
+    }
+    .main h2 {
+      font-size: 16px;
+    }
+    .main table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    .main td {
+      padding: 5px;
+      border-bottom:1px solid #ddd;
+      font-size: 12px;
+    }
+    .main .td-title {
+      font-weight: bold;
+      padding-top: 30px;
+    }
+    .main .td-body {
+     line-height: 22px;
+    }
+    @media only screen and (max-device-width: 480px)
+    {
+      .header .header-left h1{
+        font-size: 16px;
+      }
+      .main h2 {
+        font-size: 14px;;
+      }
+    }
+    --></style>
+
+</head>
+<body>
+<div class="wrapper">
+  <div class="header">
+    <div class="header-left">
+      <h1>Beurteilen <br>und F&ouml;rdern</h1>
+    </div>
+    <div class="header-right">
+      <div class="image-container"><img src="http://<?= \Environment::get('host') ?>/files/buf/images/logo/logo_header.png"></img></div>
+    </div>
+    <div class="clearing"></div>
+  </div>
+
+  <div class="container">
+    <div class="main">
+      <h2>Neue oder aktualisierte Kommentare an Sch&uuml;lern deiner Klasse</h2>
+      <table>
+        <?php foreach($this->rows as $row): ?>
+        <tr><td class="td-title"><?= $row['title'] ?></td></tr>
+        <tr><td class="td-body"><?= $row['body'] ?></td></tr>
+        <?php endforeach; ?>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

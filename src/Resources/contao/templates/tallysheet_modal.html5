@@ -1,0 +1,22 @@
+<!-- Modal -->
+<div class="modal fade" id="tallysheetModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 style="font-weight:bold;"><?= $this->skill ?></h4>
+                <h5 style="">Schüler:  <?= $this->student ?></h5>
+            </div>
+            <div class="modal-body">
+                <table>
+                <?php echo $this->rows; ?>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <!-- -->
+            </div>
+        </div>
+    </div>
+</div>

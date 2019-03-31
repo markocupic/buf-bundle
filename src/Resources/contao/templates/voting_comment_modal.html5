@@ -1,0 +1,77 @@
+<!-- Modal -->
+<div class="modal fade" id="commentModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3>Kommentare zu:  <?= $this->student ?>, <?= $this->classname ?></h3>
+                <h4>Fach: <?= $this->subjectname ?></h4>
+
+            </div>
+            <div class="modal-body" style="overflow-y:auto">
+
+                <?php if($this->isAllowed === false): ?>
+                    <h5>Kommentare</h5>
+                    <table class="table table-striped">
+                        <?= $this->rows ?>
+                    </table>
+                <?php else: ?>
+                    <div id="globalOperations"><button title="neuer Kommentar" class="btn btn-link" onclick="EvalTable.newComment(<?= $this->subject ?>,<?= $this->studentId ?>)"><i class="fa fa-plus"></i> Neuer Kommentar</button></div>
+                    <table id="commentTable" class="table table-striped">
+                        <?= $this->rows ?>
+                    </table>
+                    <div id="commentForm" style="display:none">
+                        <input name="id" type="hidden" value="0"></input>
+
+                        <div class="form-group date">
+                            <label for="dateOfCreation">Datum</label>
+                            <div class="form-group input-group date">
+                                <input name="dateOfCreation" maxlength="10" type="text" class="datepicker form-control" data-date-format="yyyy-mm-dd" autocomplete="off">
+                                <div class="input-group-addon">
+                                    <span class="datepicker-icon fa fa-calendar"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <script>
+                            $().ready(function() {
+                                $('#commentModal').on('shown.bs.modal', function (e) {
+                                    // do something...
+                                    //alert('bsdf');
+                                });
+                            });
+
+                            $('.datepicker-icon').click(function(event){
+                                $('.datepicker').datepicker('show');
+                            });
+                            $('.datepicker').datepicker({
+                                zIndexOffset: 999999,
+                                format: 'yyyy-mm-dd',
+                                language: 'de'
+                            });
+                        </script>
+
+
+
+                        <div class="form-group">
+                            <label for="comment">Kommentar</label>
+                            <textarea id="comment" name="comment" rows="10" class="form-control"></textarea>
+                        </div>
+                        <button onclick="EvalTable.saveComment()" type="submit" class="submit btn btn-success btn-sm">speichern</button>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <!--<div class="modal-footer">
+                <?php if($this->isAllowed): ?>
+                <button type="submit" class="btn btn-primary pull-left" onclick="EvalTable.saveComment(this,<?= $this->studentId ?>)" data-dismiss="modal">Kommentar speichern</button>
+                <?php endif; ?>
+            </div>-->
+        </div>
+    </div>
+</div>

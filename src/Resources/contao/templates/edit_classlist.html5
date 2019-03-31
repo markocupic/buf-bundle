@@ -1,0 +1,114 @@
+<h2>Die Klassenliste der Klasse <?php echo \ClassModel::findByPk($this->User->class)->name; ?></h2>
+
+
+{{buf::dashboard_link}}
+<div id="neue_Schueler">
+
+    <form id="AjaxForm" name="AjaxForm" method="post" action="<?php echo $this->action; ?>">
+        <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+        <input type="hidden" name="TL_FORM" value="tl_student">
+ <div style="overflow-x:auto;">
+        <table id="editClasslist" class="table buf-table klassenliste">
+            <tr class="top-row">
+                <th class="width6 align_left col_0"></th>
+                <th class="width20 align_left col_1 col_lastname"><p><strong>Name</strong></p></th>
+                <th class="width20 align_left col_2 col_firstname"><p><strong>Vorname</strong></p></th>
+                <th class="width15 col_3 col_gender textaligncenter"><p><strong>Geschlecht</strong></p></th>
+                <th class="width15 col_4 col_dateOfBirth textaligncenter"><p><strong>Geburtsdatum</strong></p></th>
+                <th class="width8 col_5 textaligncenter">&nbsp;</th>
+                <th class="width8 col_6 textaligncenter">&nbsp;</th>
+                <th class="width8 col_7 textaligncenter">&nbsp;</th>
+
+            </tr>
+
+            <?php $i=1; ?>
+            <?php foreach($this->students as $student): ?>
+
+            <tr class="row_student">
+                <td class="align_left col_0"><?php echo $i; ?></td>
+                <!-- Der Name und das ausgeblendete Textfeld -->
+                <td class="align_left col_1 col_lastname">
+                    <span class="content"><?php echo $student['lastname']; ?></span>
+                </td>
+                <!-- Der Vorname und das ausgeblendete Textfeld -->
+                <td class="align_left col_2 col_firstname">
+                    <span class="content"><?php echo $student['firstname']; ?></span>
+                </td>
+                <!-- Das Geschlecht und die Radiobuttons für das Geschlecht -->
+                <td class="col_3 col_gender textaligncenter">
+                    <span class="content"><?php echo $student['gender'] == 'female' ? 'weiblich' : 'männlich' ; ?></span>
+                </td>
+                <!-- Das Geburtsdatum und das ausgeblendete Textfeld -->
+                <td class="col_4 col_dateOfBirth textaligncenter">
+                    <span class="content"><?php echo \Date::parse('d-m-Y', $student['dateOfBirth']); ?></span>
+                </td>
+                <!-- Das Symbol um Schüler zu löschen -->
+                <td class="col_5 textaligncenter">
+                    <span class="fa fa-times delete_row" title="Schüler löschen" alt="delete_row" data-id="<?= $student['id'] ?>"></span>
+                </td>
+                <!-- Das Symbol um Schüler zu bearbeiten -->
+                <td class="col_6 textaligncenter">
+                    <span class="fa fa-pencil-alt edit_row" title="Namen bearbeiten" alt="edit_row" data-id="<?= $student['id'] ?>"></span>
+                    <button type="button" data-id="<?= $student['id'] ?>" class="submit_row btn btn-primary">
+                        <i class="fa fa-save"></i>
+                    </button>
+                </td>
+                <td class="col_7 textaligncenter">
+                    <button type="button" data-id="<?= $student['id'] ?>" title="einblenden/ausblenden" class="toggle_row btn btn-link">
+                        <i class="fa fa-eye<?php if($student['disable']): ?>-slash<?php endif; ?>"></i>
+                    </button>
+                </td>
+            </tr>
+            <?php $i++; ?>
+            <?php endforeach; ?>
+
+
+            <?php for($i;$i<=30;$i++): ?>
+            <tr>
+                <td class="align_left col_0"><?php echo $i; ?></td>
+                <td class="align_left col_1">
+                    <input type="text" name="insert_lastname[]" class="form-control">
+                </td>
+                <td class="align_left col_2">
+                    <input type="text" name="insert_firstname[]" class="form-control">
+                </td>
+                <td class="col_3 textaligncenter">
+                    <select name="insert_gender[]" class="form-control">
+                        <option value="male">männlich</option>
+                        <option value="female">weiblich</option>
+                    </select>
+                </td>
+                <td class="align_left col_4">
+                    <input type="text" name="insert_dateOfBirth[]" class="date-picker form-control">
+                </td>
+                <td class="col_5">&nbsp;</td>
+                <td class="col_6">&nbsp;</td>
+                <td class="col_7">&nbsp;</td>
+
+            </tr>
+            <?php endfor; ?>
+
+        </table>
+        <input name="submit" type="submit" class="btn btn-primary" value="speichern">
+        </div>
+    </form>
+</div>
+
+
+<script>
+(function ($) {
+
+    $().ready(function() {
+        EditClasslist = new EditClasslist({
+            request_token: '{{request_token}}',
+            dateFormat: 'dd-mm-yyyy'
+        });
+    });
+})(jQuery);
+</script>
+
+<script type="text/javascript">
+    $(".date-picker").datepicker({
+        format: 'yyyy-mm-dd'
+    })
+</script>

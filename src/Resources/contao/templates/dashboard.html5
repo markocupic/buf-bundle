@@ -1,0 +1,243 @@
+<div class="dashboard">
+<h2>Dashboard</h2>
+
+<div class="row">
+<div class="col-lg-6">
+<h3>Beurteilen</h3>
+<div class="list-group">
+<a class="list-group-item" title="neue Beurteilung abgeben" href="<?= $this->hrefNewVoting ?>">
+    <dic class="float-left"><span class="fa fa-plus"></span>Neue Beurteilung abgeben</dic>
+    <div class="float-right"><span class="label label-success">new</span></div>
+    <div class="clearing"></div>
+</a>
+</div>
+
+<h3>Meine Beurteilungen</h3>
+<div class="list-group">
+    <?php foreach ($this->myVotings as $voting): ?>
+       <a class="list-group-item" title="bearbeiten" href="<?= $this->hrefVotingTable . setQueryString(array('teacher' => $voting['teacherId'], 'subject' => $voting['subjectId'], 'class' => $voting['classId'])) ?>">
+           <div class="float-left"><span class="fa fa-pencil-alt"></span></div>
+           <div class="float-left">
+               <?= $voting["className"] . "{{br}}" . $voting["subjectName"] ?>{{br}}
+               Kommentare: <?=  $voting["intComments"] ?>
+           </div>
+           <div class="float-right"><span class="label label-info"><?= $voting['age'] ?></span></div>
+           <div class="clearing"></div>
+
+       </a>
+    <?php endforeach; ?>
+    <?php if(!count($this->myVotings)): ?>
+    <p class="list-group-item">Du hast noch keine Beurteilungen abgegeben.</p>
+    <?php endif; ?>
+</div>
+
+
+<?php if(\TeacherModel::getOwnClass()): ?>
+<h3>Beurteilungen von Fachlehrpersonen an meiner Stammklasse</h3>
+<?php if($this->votingsOnMyClass): ?>
+<div class="list-group">
+    <?php foreach  ($this->votingsOnMyClass as $voting): ?>
+    <?php if ($voting["teacherId"] == $this->User->id): ?>
+    <a class="list-group-item" title="bearbeiten" href="<?= $this->hrefVotingTable . setQueryString(array('teacher' => $voting['teacherId'], 'subject' => $voting['subjectId'], 'class' => $voting['classId'])) ?>">
+        <div class="float-left"><span class="fa fa-pencil-alt"></span></div>
+        <div class="float-left">
+            <?= $voting["className"] ."{{br}}". $voting["subjectName"] ?>{{br}}
+            LP: <?= $voting['teacherFullName'] ?>{{br}}
+            Kommentare: <?= $voting['intComments'] ?>
+        </div>
+        <div class="float-right"><span class="label label-info"><?= $voting['age'] ?></span></div>
+        <div class="clearing"></div>
+    </a>
+    <?php else: ?>
+    <a class="list-group-item" title="ansehen" href="<?= $this->hrefVotingTable . setQueryString(array('teacher' => $voting['teacherId'], 'subject' => $voting['subjectId'], 'class' => $voting['classId'])) ?>">
+        <div class="float-left"><span class="fa fa-eye"></span></div>
+        <div class="float-left">
+            <?= $voting["className"] ."{{br}}". $voting["subjectName"] ?>{{br}}
+            LP: <?= $voting['teacherFullName'] ?>{{br}}
+            Kommentare: <?= $voting['intComments'] ?>
+        </div>
+        <div class="float-right"><span class="label label-default"><?= $voting['age'] ?></span></div>
+        <div class="clearing"></div>
+    </a>
+    <?php endif; ?>
+    <?php endforeach; ?>
+</div>
+<?php endif; ?>
+
+
+<?php if(!$this->votingsOnMyClass): ?>
+<div class="list-group">
+    <p class="list-group-item">An deiner Stammklasse wurden noch keine Beurteilungen abgegeben.</p>
+</div>
+<?php endif; ?>
+<?php endif; ?>
+</div><!--end col-->
+
+<?php if(\TeacherModel::getOwnClass()): ?>
+<div class="col-lg-6">
+    <h3>Für den Klassenlehrer</h3>
+    <div class="list-group">
+        <a class="list-group-item" title="Klassenliste bearbeiten" href="<?= $this->editClasslistLink ?>">
+            <div class="float-left"><span class="fa fa-pencil-alt"></span></div>
+            <div class="float-left">
+                Die Klassenliste bearbeiten
+            </div>
+            <div class="clearing"></div>
+        </a>
+        <a class="list-group-item" title="Mittelwerte und Kommentare meiner Stammklasse" href="<?= $this->averageTableLink ?>">
+            <div class="float-left"><span class="fa fa-eye"></span></div>
+            <div class="float-left">
+                Mittelwert-Tabelle{{br}}und Lehrerkommentare meiner Stammklasse ansehen
+            </div>
+            <div class="clearing"></div>
+        </a>
+        <a class="list-group-item" title="Strichliste" href="<?= $this->tallySheetLink ?>">
+            <div class="float-left"><span class="fa fa-eye"></span></div>
+            <div class="float-left">
+                Strichliste &quot;Sammelblatt&quot;{{br}}meiner Stammklasse ansehen
+            </div>
+            <div class="clearing"></div>
+        </a>
+    </div>
+</div><!--end col-->
+<?php endif; ?>
+
+</div><!--end row -->
+</div>
+
+<?php if(\TeacherModel::getOwnClass()): ?>
+<h3>Bewertungs-Statistik für die Klasse <?= \ClassModel::findByPk(\TeacherModel::getOwnClass())->name ?></h3>
+<p>Bewertungen in den letzten 180 d: </p>
+<div id="bewertungsStatistik" style="min-width: 310px; height: 400px; margin: 0"></div>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<?php
+        $strKeys = '';
+        $strValues = '';
+        $arrDat = \VotingModel::getVotingsAsJSON($this->User->id);
+        foreach($arrDat as $v)
+        {
+            $strKeys .= '"'. $v['x'] . '",';
+            $strValues .= $v['y'] . ',';
+        }
+?>
+<script>
+//http://www.highcharts.com/demo/column-basic/grid-light
+//API: http://api.highcharts.com/highcharts#xAxis
+$(function () {
+    $('#bewertungsStatistik').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Bewertungsstatistik'
+        },
+        subtitle: {
+            //text: 'Erstellte Bewertungen im letzten halben Jahr'
+        },
+        xAxis: {
+            categories: [<?= $strKeys ?>],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Anzahl'
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                return 'Am <b>' + this.x + '</b> wurden <b>' + this.y + '</b> Bewertungen gemacht.';
+            }
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Bewertungen pro Tag',
+            data: [<?= $strValues ?>]
+        }]
+    });
+});
+
+
+
+/**
+ * Grid-light theme for Highcharts JS
+ * @author Torstein Honsi
+ */
+
+// Load the fonts
+Highcharts.createElement('link', {
+    href: '//fonts.googleapis.com/css?family=Dosis:400,600',
+    rel: 'stylesheet',
+    type: 'text/css'
+}, null, document.getElementsByTagName('head')[0]);
+
+Highcharts.theme = {
+    colors: ["#7cb5ec", "#f7a35c", "#90ee7e", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
+        "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+    chart: {
+        backgroundColor: null,
+        style: {
+            fontFamily: "Open Sans, sans-serif"
+        }
+    },
+    title: {
+        style: {
+            fontSize: '16px',
+            fontWeight: 'bold',
+            textTransform: 'uppercase'
+        }
+    },
+    tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'rgba(219,219,216,0.8)',
+        shadow: false
+    },
+    legend: {
+        itemStyle: {
+            fontWeight: 'bold',
+            fontSize: '13px'
+        }
+    },
+    xAxis: {
+        gridLineWidth: 1,
+        labels: {
+            style: {
+                fontSize: '12px'
+            }
+        }
+    },
+    yAxis: {
+        minorTickInterval: 'auto',
+        title: {
+            style: {
+                textTransform: 'uppercase'
+            }
+        },
+        labels: {
+            style: {
+                fontSize: '12px'
+            }
+        }
+    },
+    plotOptions: {
+        candlestick: {
+            lineColor: '#404048'
+        }
+    },
+
+
+    // General
+    background2: '#F0F0EA'
+
+};
+
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);</script>
+<?php endif; ?>

@@ -1,0 +1,295 @@
+<h2>Beurteilungsraster </h2>
+
+<ul>
+    <li><strong>Fach: </strong><?php echo \SubjectModel::getName($this->subjectId); ?></li>
+    <li><strong>Beurteilt durch: </strong><?php echo \TeacherModel::getFullName($this->teacherId); ?></li>
+    <li><strong>Klasse: </strong><?php echo \ClassModel::getName($this->classId); ?></li>
+</ul>
+
+<div class="row">
+    <div id="Beurteilungstabelle" class="col-md-9">
+        <div class="row">
+            <div class="col-xs-6">
+                {{buf::dashboard_link}}
+            </div>
+            <div class="col-xs-6 align_right">
+                <a target="_blank" href="<?php echo $this->hrefPrintTable; ?>" title="drucken"><span class="fa fa-print"></span> Tabelle drucken</a>
+            </div>
+        </div>
+        <div style="overflow-x:auto;">
+        <?php echo $this->votingTable; ?>
+        </div>
+    </div>
+
+
+    <div id="BeurteilungstabelleColumnRight" class="col-md-3">
+
+        <?php if ($this->User->id == $this->teacherId ): ?>
+            <p>
+                <a title="Alle Verhaltensnoten dieser Tabelle löschen" class="block btn btn-danger btn-sm" id="delete_skills_only" href="<?php echo $this->hrefDeleteSkillsOnly; ?>" onclick="if(!confirm('Warnung!!! \n Sollen alle Verhaltensnoten dieser Tabelle unwiderruflich gelöscht werden?')) return false;">Alle Verhaltensnoten löschen</a>
+            </p>
+            <p>
+                <a title="Alle Kommentare dieser Tabelle löschen" class="block btn btn-danger btn-sm" id="delete_comments_only" href="<?php echo $this->hrefDeleteCommentsOnly; ?>" onclick="if(!confirm('Warnung!!! \n Sollen alle Kommentare dieser Tabelle unwiderruflich gelöscht werden?')) return false;">Alle Kommentare löschen</a>
+            </p>
+        <?php elseif (\TeacherModel::getOwnClass() == $this->classId): ?>
+            <p>
+                <a title="Alle Verhaltensnoten dieser Tabelle löschen" class="block btn btn-danger btn-sm" id="delete_skills_only" href="<?php echo $this->hrefDeleteSkillsOnly; ?>" onclick="if(!confirm('Warnung!!! \nDas ist die Wertung einer Fachlehrperson. Sollen alle Verhaltensnoten dieser Tabelle unwiderruflich gelöscht werden?')) return false;">Alle Verhaltensnoten löschen</a>
+            </p>
+            <p>
+                <a title="Alle Kommentare dieser Tabelle löschen" class="block btn btn-danger btn-sm" id="delete_comments_only" href="<?php echo $this->hrefDeleteCommentsOnly; ?>" onclick="if(!confirm('Warnung!!! \nDas ist die Wertung einer Fachlehrperson. Sollen alle Kommentare dieser Tabelle unwiderruflich gelöscht werden?')) return false;">Alle Kommentare löschen</a>
+            </p>
+        <?php else: ?>
+        <?php endif; ?>
+        <div class="skillDetailsLayer">
+            <h3>Kompetenzen:</h3>
+
+            <div class="panel-group kompetenzen-accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                <!-- 1 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading1">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                Selbstständig arbeiten:
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Sucht nach eigenen Lösungen</li>
+                                <li>Lernt aus eigenem Antrieb</li>
+                                <li>Organisiert Arbeiten selbständig und weiss sich selbst zu helfen</li>
+                                <li>Erledigt Arbeiten termingerecht und zuverlässig</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 2 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading2">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2" class="collapsed">
+                                Sorgfältig arbeiten:
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Arbeitet sauber mit angemessener Sorgfalt</li>
+                                <li>Legt Wert auf eine ansprechende Gestaltung</li>
+                                <li>Geht mit Materialien, Werkzeugen, Geräten sorgfältig um</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 3 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading3">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3" class="collapsed">
+                                Sich aktiv am Unterricht beteiligen:
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Beteiligt sich am Unterricht</li>
+                                <li>Lässt sich motivieren</li>
+                                <li>Bringt eigene Beiträge</li>
+                                <li>Ist aufmerksam</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 4 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading4">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4" class="collapsed">
+                                Eigene Fähigkeiten einschätzen:
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Kann den Aufwand, der für die Lösung einer Aufgabe notwendig ist, realistisch
+                                    einschätzen
+                                </li>
+                                <li>Kann beurteilen, ob eine Arbeit gut oder weniger gut gelungen ist</li>
+                                <li>Sieht bei einer Arbeit Verbesserungsmöglichkeiten</li>
+                                <li>Schätzt sich anhand von Lernzielen richtig ein</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 5 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading5">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5" class="collapsed">
+                                Mit anderen zusammenarbeiten:
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Beteiligt sich aktiv an der Zusammenarbeit</li>
+                                <li>Kann persönliche Bedürfnisse zu Gunsten der Zielerreichung in der Gruppe zurückstellen</li>
+                                <li>Trifft Vereinbarungen und hält sich daran</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 6 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading6">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapse6" class="collapsed">
+                                Konstruktiv mit Kritik umgehen:
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Nimmt Kritik an und kann damit konstruktiv umgehen</li>
+                                <li>Teilt Kritik angemessen mit</li>
+                                <li>Verbindet Kritik mit konstruktiven Vorschlägen</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 7 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading7">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7" class="collapsed">
+                                Respektvoll mit anderen umgehen:
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Hat einen guten Umgang mit Mitlernenden und Erwachsenen</li>
+                                <li>Respektiert Menschen unabhängig von Alter, Geschlecht, Herkunft und Lebensweise</li>
+                                <li>Übernimmt Arbeiten für die Gemeinschaft</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 8 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading8">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8" class="collapsed">
+                                Regeln einhalten:
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8">
+                        <div class="panel-body">
+                            <ul>
+                                <li>Hält sich an die Schulhausordnung</li>
+                                <li>Hält sich an Regeln und Weisungen</li>
+                                <li>Ist pünktlich</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <h3>Bewertung:</h3>
+            <p>
+            1 = vollumfänglich erfüllt<br>
+            2 = mehrheitlich erfüllt<br>
+            3 = teilweise erfüllt<br>
+            4 = nicht erfüllt<br>
+            </p>
+        </div>
+
+        <p><strong>Hinweis:</strong><br>Mit der Tabulatortaste kann praktisch zum nächsten Feld gesprungen
+            werden.</p>
+        <!--Ajax Anwendung Abweichungstoleranz-->
+
+
+        <?php if (\TeacherModel::getOwnClass() == $this->classId): ?>
+
+
+        <h3>Abweichung zum Mittelwert:</h3>
+        <p>
+        Bei grüner Farbe ist diese Bewertung höher
+            ausgefallen, wie der Mittelwert, aller bisher erstellten Bewertungen.
+            {{br}}{{br}}
+            Bei roter Farbe ist diese Bewertung tiefer ausgefallen, wie der Mittelwert, aller bisher
+            erstellten Bewertungen.
+        </p>
+        <p>
+            <strong>Abweichungstoleranz hier einstellen:</strong><br>
+            <input id="devTolerance" title="Abweichungstoleranz: <?php echo $this->User->deviation; ?>" onChange="EvalTable.updateTeachersDeviationTolerance(this);" type="range" min="0.1" max="3" step="0.1" name="deviation" value="<?php echo $this->User->deviation; ?>">
+        </p>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script>
+(function ($) {
+    $().ready(function(event) {
+        var isOwner = <?php echo ($this->User->id == \Input::get('teacher')) ? 'true' : 'false'; ?>;
+        var isClassTeacher = <?php echo (\TeacherModel::isClassTeacher()) ? 'true' : 'false'; ?>;
+        EvalTable = new EditTable(isOwner, isClassTeacher);
+        EvalTable.request_token = '<?php echo REQUEST_TOKEN; ?>';
+        EvalTable.teacher = '<?php echo Input::get("teacher"); ?>';
+        EvalTable.subject = '<?php echo Input::get("subject"); ?>';
+        EvalTable.class = '<?php echo Input::get("class"); ?>';
+    });
+})(jQuery);
+</script>
+
+<script>
+(function ($) {
+
+    $().ready(function() {
+        $('.skillDetailsLayer .navlist li a').on('click', function (event) {
+            var index = this.innerHTML;
+            $$('.skillDetailsLayer .navlist li.active').removeClass('active');
+            $$('.skillDetailsLayer .navlist li')[index-1].addClass('active');
+            displaySkillDetails(index);
+        });
+
+        // fade in first skillDetail
+        displaySkillDetails(1);
+
+    });
+
+    $().ready(function() {
+        $('#commentModal').on('shown.bs.modal', function (e) {
+            // do something...
+            alert('bsdf');
+        });
+    });
+
+
+
+    function displaySkillDetails(index) {
+
+        $('div.skillDetails').each(function (el) {
+            el.css({
+                'display': 'none'
+            });
+        });
+        el = $('skillDetails_' + index);
+        el.css('opacity', '0');
+        el.css('display', 'block');
+        el.fadeIn();
+   }
+
+})(jQuery);
+
+</script>

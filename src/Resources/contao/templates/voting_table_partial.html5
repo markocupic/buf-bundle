@@ -1,0 +1,93 @@
+<table class="beurteilungstabelle table buf-table">
+    <!-- row 1 -->
+    <tr>
+        <td class="name_col width14">&nbsp;</td>
+        <td class="name_col width15">&nbsp;</td>
+        <?php for ($i = 1; $i < 9; $i++): ?>
+            <td id="skillHead_<?php echo $i; ?>" style="background-image: url('files/buf/images/gd/images.php?bgcolor=bright&amp;kriterium=<?php echo $i; ?>'); ?>" class="width7 description col_<?php echo $i; ?>">&nbsp;</td>
+        <?php endfor; ?>
+        <td class="edit_col width5">&nbsp;</td>
+        <td class="delete_col width5">&nbsp;</td>
+        <td class="comment_col width5">&nbsp;</td>
+
+    </tr>
+    <!-- row 2 -->
+    <tr>
+        <td class="name_col">&nbsp;</td>
+        <td class="name_col">&nbsp;</td>
+        <?php for ($i = 1; $i < 9; $i++): ?>
+        <td class="col_<?php echo $i; ?>"><a href="<?php echo $this->hrefDeleteRowOrCol; ?>" onclick="EvalTable.deleteEntries(this,<?php echo $i; ?>,'delete_col'); return false;" title="Spalte löschen"><span class="fa fa-times"></span></a></td>
+        <?php endfor; ?>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+
+    </tr>
+    <!-- row 3 -->
+    <tr>
+        <td class="name_col">&nbsp;</td>
+        <td class="name_col">&nbsp;</td>
+        <?php for ($i = 1; $i < 9; $i++): ?>
+        <td class="col_<?php echo $i; ?>">
+            <span class="fa fa-pencil-alt edit_icon" title="bearbeiten vertikal" alt="bearbeiten vertikal" onclick="EvalTable.edit(this,<?php echo $i; ?>,'edit_col');"></span>
+            <button type="submit" style="padding:1px; width:25px; height:25px;" class="submit_button btn btn-primary">
+              <i class="fa fa-save"></i>
+            </button>
+        </td>
+        <?php endfor; ?>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+
+    </tr>
+
+    <!-- skills -->
+    <?php $Zeile = 0; ?>
+    <?php foreach ($this->rows as $Datensatz): ?>
+        <?php $Zeile++; ?>
+        <!-- next student -->
+        <tr>
+            <!--lastname, firstname -->
+            <td class="row_<?php echo $Datensatz['student']; ?> name_col"><?php echo $Datensatz['lastname']; ?></td>
+            <td class="row_<?php echo $Datensatz['student']; ?> name_col"><?php echo $Datensatz['firstname']; ?></td>
+            <!-- rating cols -->
+            <?php for ($i = 1; $i < 9; $i++): ?>
+            <?php
+            //generate the rating value
+            $value = ($Datensatz["skill" . $i]["value"] == 0 ? "" : $Datensatz["skill" . $i]["value"]);
+            $date = $Datensatz["skill" . $i]["date"];
+            ?>
+
+            <td id="skillCell_s_<?php echo $Datensatz['student']; ?>_k_<?php echo $i; ?>" data-id="<?php echo $Datensatz['student']; ?>" class="row_<?php echo $Datensatz['student']; ?> skillCell col_<?php echo $i; ?>" title="<?php if ($date && $value > 0): ?>Bewertung vom: <?php echo $date; ?><?php endif; ?>">
+                <span class="rating"><?php echo $value; ?></span>
+
+            <?php if (\TeacherModel::getOwnClass() == $this->classId && $Datensatz["skill" . $i]["deviation"] != ""): ?>
+            <span class="deviation" style="color:#<?php echo $Datensatz['skill' . $i]['color']; ?>;"><br>Abw:<br><?php echo $Datensatz['skill' . $i]['deviation']; ?></span>
+            <?php endif; ?>
+            </td>
+            <?php endfor; ?>
+
+            <!-- edit col -->
+            <td class="edit_col row_<?php echo $Datensatz['student']; ?>">
+                <span class="fa fa-pencil-alt edit_icon" title="Reihe bearbeiten" alt="Reihe bearbeiten" onclick="EvalTable.edit(this,<?php echo $Datensatz["student"]; ?>,'edit_row')"></span>
+                <button type="submit" style="padding:1px; width:25px; height:25px;" class="submit_button btn btn-primary">
+                    <i class="fa fa-save"></i>
+                </button>
+            </td>
+            <!-- delete col -->
+            <td class="delete_col row_<?php echo $Datensatz['student']; ?>"><a href="<?php echo $this->hrefDeleteRowOrCol; ?>" onclick="EvalTable.deleteEntries(this,<?php echo $Datensatz['student']; ?>,'delete_row'); return false;" title="Bewertungen in Zeile löschen"><span class="fa fa-times"></span></a></td>
+
+            <!-- comment col -->
+            <?php
+                $commentClass = (null !== \CommentModel::findComment($Datensatz['student'], $this->teacherId, $this->subjectId)) ? 'fas fa-comment' : 'far fa-comment';
+                $attrTitle = (null !== \CommentModel::findComment($Datensatz['student'], $this->teacherId, $this->subjectId)) ? 'Kommentar bearbeiten' : 'Kommentar schreiben';
+            ?>
+            <td class="comment_col row_<?php echo $Datensatz['student']; ?>"><a href="<?php //echo $this->hrefDeleteRowOrCol; ?>" onclick="EvalTable.getCommentModal(this,<?php echo $Datensatz['student']; ?>,'comment_row'); return false;" title="<?= $attrTitle ?>"><span class="<?= $commentClass ?>"></span></a></td>
+
+</tr>
+    <?php endforeach; ?>
+</table>
+
+<?php if($this->lastChange): ?>
+<p>Letzte Änderung: <?php echo \Date::parse('d.m.Y', $this->lastChange); ?></p>
+<?php endif; ?>

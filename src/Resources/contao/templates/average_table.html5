@@ -1,0 +1,59 @@
+<h2>Mittelwerte (&quot;Sammelblatt&quot;) Stammklasse <?php echo  \ClassModel::getName($this->classId); ?></h2>
+<select id="showCommentsNotOlderThenSelect" class="form-control" onChange="AvgTable.updateTeachersShowCommentsTimeRange(this);">
+<option value="0">alle Kommentare anzeigen</option>
+<option value="1">h&ouml;chstens 1 Monat alte Kommentare anzeigen</option>
+<?php for($i = 2; $i<37; $i++): ?>
+<option value="<?= $i ?>">h&ouml;chstens <?= $i ?> Monate alte Kommentare anzeigen</option>
+<?php endfor; ?>
+</select>
+{{br}}
+<div class="row">
+    <div class="col-xs-6">
+        {{buf::dashboard_link}}
+    </div>
+    <div class="col-xs-6 align_right">
+        <a style="float:right" href="<?php echo $this->printAverageTableLink; ?>" title="drucken"><span class="fa fa-print"></span> Tabelle drucken</a>
+    </div>
+</div>
+<div style="overflow-x:auto;">
+<table id="Mittelwerttabelle" class="buf-table mittelwerttabelle">
+    <tr class="row_1">
+        <td style="width:18%">&nbsp;</td>
+        <td style="width:18%">&nbsp;</td>
+        <?php for($i=1;$i<9;$i++): ?>
+        <td style="background-image: url('files/buf/images/gd/images.php?bgcolor=<?php echo $i%2 == 0 ? "bright" : "dark"; ?>&amp;kriterium=<?php echo $i; ?>'); ?>"  class="Vertikalschrift Beurteilungsraster description <?php echo $i%2 == 0 ?  "even" : "odd"; ?> ">Kriterium<?php echo $i; ?></td>
+        <?php endfor;?>
+        <td class="odd">&nbsp;</td>
+    </tr>
+<?php foreach($this->rows as $averageValues): ?>
+    <tr>
+        <td class="align_left"><?php echo $averageValues["lastname"]; ?></td>
+        <td class="align_left"><?php echo $averageValues["firstname"]; ?></td>
+<?php for($i=1;$i<9;$i++): ?>
+        <td class="<?php echo ($i%2 != 0 ? "odd" : "even"); ?>"><?php echo (round($averageValues["skill".$i],2)==0 ? "k.A." : round($averageValues["skill".$i],2)); ?></td>
+<?php endfor; ?>
+        <td class="odd">
+            <a href="<?= $this->printDataSheet . setQueryString(array('student' => $averageValues['id'])) ?>" title="Leistungsblatt ansehen">
+                <span class="fa fa-commenting"></span>
+            </a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+</div>
+
+<script>
+(function ($) {
+    $().ready(function() {
+        var showCommentsNotOlderThen = <?= \FrontendUser::getInstance()->showCommentsNotOlderThen ?>;
+        $('#showCommentsNotOlderThenSelect option').each(function(){
+            if($(this).prop('value') == showCommentsNotOlderThen)
+            {
+                $(this).prop('selected',true);
+            }
+        });
+
+        AvgTable = new AverageTable("<?= \FrontendUser::getInstance()->id ?>", "<?= REQUEST_TOKEN ?>");
+    });
+})(jQuery);
+</script>

@@ -1,0 +1,36 @@
+<h2 id="titel">Strichliste (&quot;Sammelblatt&quot;) Stammklasse <?php echo \ClassModel::getName($this->classId); ?></h2>
+<div class="row">
+    <div class="col-xs-6">
+        {{buf::dashboard_link}}
+    </div>
+    <div class="col-xs-6 align_right">
+        <a style="float:right" href="<?php echo $this->printTallySheetLink; ?>" title="drucken"><span class="fa fa-print"></span> Tabelle drucken</a>
+    </div>
+</div>
+<div style="overflow-x:auto;">
+<table id="Strichliste" class="buf-table">
+
+    <tr>
+        <td id="requestStatus" class="Vertikalschrift Beurteilungsraster description textalignbottom width10">&nbsp;</td>
+        <td class="Vertikalschrift Beurteilungsraster description width10">&nbsp;</td>
+<?php for($i=1;$i<9;$i++): ?>
+<?php if($i%2!=0){$bgcolor="dark"; $Hintergrund="odd";}else{$bgcolor="bright";$Hintergrund="even";} ?>
+        <td style="background-image: url('files/buf/images/gd/images.php?bgcolor=<?php echo $bgcolor; ?>&amp;kriterium=<?php echo $i; ?>')" colspan="4" class="Vertikalschrift Beurteilungsraster description <?php echo $Hintergrund; ?>"><span>Kriterium<?php echo $i; ?></span></td>
+<?php endfor; ?>
+    </tr>
+    <?php echo $this->rows; ?>
+</table>
+<p class="green">Anm.: Die Wertung der Klassenlehrperson ist in der Tabelle fett und unterstrichen dargestellt. Der aktuelle Durchschnitt ist rot hinterlegt.</p>
+</div>
+<script>
+    (function($){
+        $().ready(function() {
+            objTallySheet = new TallySheet({
+                request_token: '{{request_token}}'
+            });
+
+<?php echo $this->js; ?>
+
+            });
+   })(jQuery);
+</script>

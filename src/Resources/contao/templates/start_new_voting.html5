@@ -1,0 +1,31 @@
+<div id="neueBeurteilungstarten">
+    <h2>Neue Beurteilung beginnen</h2>
+
+    {{buf::dashboard_link}}
+
+    <div class="formbody">
+        <form name="neue_Beurteilung_starten" method="post" action="<?php echo $this->action; ?>">
+            <input type="hidden" name="REQUEST_TOKEN" value="<?php echo REQUEST_TOKEN; ?>"/>
+            <input type="hidden" name="TL_FORM" value="start_new_voting">
+            <input type="hidden" name="teacher" value="{{user::username}}">
+
+            <div class="form-group">
+            <label for="class">Klasse ausw&auml;hlen:</label>
+            <select name="class" class="form-control">
+            <?php echo $this->classes; ?>
+            </select>
+            </div>
+
+            <div class="form-group">
+            <label for="subject">Fach ausw&auml;hlen:</label>
+            <select name="subject" class="form-control" placeholder="Fach">
+            <?php echo $this->subjects; ?>
+            </select>
+            </div>
+            <div class="submit_container">
+            <input name="weiter" type="submit" value="weiter" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,6 @@
+<tr data-id="<?= $this->id ?>" data-subject="<?= $this->subject ?>" data-student="<?= $this->student ?>">
+    <td><strong><?= $this->dateOfCreation ?></strong><br><?= $this->comment ?></td>
+    <td style="padding-left:2px; padding-right:2px; width:28px;"><button onclick="EvalTable.toggleVisibility(this)" title="Sichtbarkeit verändern" class="btn btn-default btn-xs"><i class="fa <?php if($this->published): ?>fa-eye<?php else: ?>fa-eye-slash<?php endif; ?>"></i></button></td>
+    <td style="padding-left:2px; padding-right:2px; width:28px;"><button onclick="EvalTable.editComment(this)" title="bearbeiten" class="btn btn-success btn-xs"><i class="fa fa-pencil-alt"></i></button></td>
+    <td style="padding-left:2px; padding-right:2px; width:28px;"><button onclick="EvalTable.deleteComment(this)" title="l&ouml;schen" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button></td>
+</tr>

@@ -1,0 +1,93 @@
+        {{buf::dashboard_link}}
+        {{br}}{{br}}
+<?php if($this->submitted): ?>
+<div class="alert alert-success">
+Einstellungen wurden gespeichert.
+</div>
+<?php endif; ?>
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#tl_member_account_settings"><span class="fa fa-cogs"></span> Kontoeinstellungen</a></li>
+    <li><a data-toggle="tab" href="#tl_member_password_settings"><span class="fa fa-key"></span> Passwort ändern</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="tl_member_account_settings" class="tab-pane fade in active">
+        <h2>Kontoeinstellungen</h2>
+        <form id="<?php echo $this->formId1; ?>" class="mod_account_settings" action="<?php echo $this->action; ?>" method="<?php echo $this->method; ?>" enctype="<?php echo $this->enctype; ?>">
+            <div class="">
+                <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+                <input type="hidden" name="FORM_SUBMIT" value="tl_member_account_settings">
+                <div class="row">
+                    <div class="col-sm-4 col-md-3">
+                        <div class="image_container">
+                            <!--<h3 style="margin-top:0;"><?= $this->UserFullname ?></h3>-->
+
+                            <img style="width:100%;max-width:200px" src="files/buf/images/avatars/profile_<?=$this->gender ?>.png"></img>
+                            {{br}}
+                            <p><strong>Benutzername:</strong> <?= $this->username ?></p>
+                            <p><strong>Funktion:</strong> <?= $this->function ?></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 col-md-9">
+
+                        <div class="form-group">
+                            <?php echo $this->emailLabel; ?>
+                            <?php echo $this->email; ?>
+                        </div>
+                        <?php if(\TeacherModel::isClassTeacher()): ?>
+                        {{br}}
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="adviceOnNewComments" value="1"<?= $this->adviceOnNewCommentsChecked ?>> Bei neuen Kommentaren benachrichtigen (gilt nur für Klassenlehrer)
+                            </label>
+                        </div>
+                        <?php endif; ?>
+                        {{br}}
+                        <button type="submit" class="btn btn-primary"><?php echo $this->slabel1; ?></button>
+                    </div>
+                </div>
+
+                 </div>
+        </form>
+    </div>
+    <div id="tl_member_password_settings" class="tab-pane fade">
+        <h2>Passwort ändern</h2>
+        <form id="<?php echo $this->formId2; ?>" class="mod_account_settings" action="<?php echo $this->action; ?>" method="<?php echo $this->method; ?>" enctype="<?php echo $this->enctype; ?>">
+            <div class="">
+                <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+                <input type="hidden" name="FORM_SUBMIT" value="tl_member_password_settings">
+                <div class="form-group">
+                    <?php echo $this->passwordLabel; ?>
+                    <?php echo $this->password; ?>
+                    {{br}}
+                    <?php echo $this->confirmation; ?>
+                </div>
+                <button type="submit" class="btn btn-primary"><?php echo $this->slabel2; ?></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+/** Add bootstrap classes to template **/
+(function($) {
+    $().ready(function () {
+        $('.nav-tabs a').click(function(){
+            $(this).tab('show');
+        })
+        $('.nav-tabs a[href="#<?= $this->tl_form_submit ?>"]').tab('show');
+        $(".form-group .tl_text").addClass('form-control');
+
+
+        window.setTimeout(function() {
+            $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+                $(this).remove();
+            });
+        }, 3000);
+
+        $('p.error').closest('.form-group').addClass('has-error');
+
+    });
+})(jQuery);
+</script>
+
