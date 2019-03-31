@@ -37,7 +37,7 @@ class FpdfController extends \System
         $this->objMainController = $objMainController;
         $this->import('FrontendUser', 'User');
         $this->import('Database');
-        define('FPDF_FONTPATH', TL_ROOT . '/vendor/fpdf/fpdf/src/Fpdf/font/unifont/');
+        define('FPDF_FONTPATH', TL_ROOT . '/vendor/fpdf/fpdf/src/Fpdf/font/');
 
         return parent::__construct();
     }

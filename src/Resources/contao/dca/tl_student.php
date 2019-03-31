@@ -141,7 +141,7 @@ $GLOBALS['TL_DCA']['tl_student'] = array
             'inputType' => 'select',
             'options'   => array('male', 'female'),
             'reference' => &$GLOBALS['TL_LANG']['MSC'],
-            'eval'      => array('mandatory' => true, 'includeBlankOption' => false),
+            'eval'      => array('mandatory' => true, 'includeBlankOption' => false, 'tl_class' => 'clr'),
             'sql'       => "varchar(32) NOT NULL default ''"
         ),
         'dateOfBirth' => array
@@ -149,7 +149,7 @@ $GLOBALS['TL_DCA']['tl_student'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_student']['dateOfBirth'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => array('rgxp' => 'date', 'datepicker' => true, 'tl_class' => 'w50 wizard'),
+            'eval'      => array('rgxp' => 'date', 'datepicker' => true, 'tl_class' => 'clr wizard'),
             'sql'       => "varchar(11) NOT NULL default ''"
         ),
         'lastname'    => array
@@ -193,7 +193,7 @@ $GLOBALS['TL_DCA']['tl_student'] = array
             },
             'buf_linksTo'      => 'tl_class.id',
             'foreignKey'       => 'tl_class.name',
-            'eval'             => array('mandatory' => true, 'maxlength' => 255),
+            'eval'             => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'clr wizard'),
             'sql'              => "int(10) unsigned NOT NULL default '0'",
             'relation'         => array('type' => 'belongsTo', 'load' => 'eager')
         )

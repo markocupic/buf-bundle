@@ -8,10 +8,10 @@
 </select>
 {{br}}
 <div class="row">
-    <div class="col-xs-6">
+    <div class="col-6">
         {{buf::dashboard_link}}
     </div>
-    <div class="col-xs-6 align_right">
+    <div class="col-6 align_right">
         <a style="float:right" href="<?php echo $this->printAverageTableLink; ?>" title="drucken"><span class="fa fa-print"></span> Tabelle drucken</a>
     </div>
 </div>
@@ -34,7 +34,7 @@
 <?php endfor; ?>
         <td class="odd">
             <a href="<?= $this->printDataSheet . Markocupic\BufBundle\Helper::setQueryString(array('student' => $averageValues['id'])) ?>" title="Leistungsblatt ansehen">
-                <span class="fa fa-commenting"></span>
+                <span class="fa fa-comment"></span>
             </a>
         </td>
     </tr>

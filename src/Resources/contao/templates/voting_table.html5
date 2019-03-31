@@ -9,10 +9,10 @@
 <div class="row">
     <div id="Beurteilungstabelle" class="col-md-9">
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-6">
                 {{buf::dashboard_link}}
             </div>
-            <div class="col-xs-6 align_right">
+            <div class="col-6 align_right">
                 <a target="_blank" href="<?php echo $this->hrefPrintTable; ?>" title="drucken"><span class="fa fa-print"></span> Tabelle drucken</a>
             </div>
         </div>

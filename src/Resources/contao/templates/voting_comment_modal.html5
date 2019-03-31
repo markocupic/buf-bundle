@@ -1,13 +1,16 @@
-<!-- Modal -->
-<div class="modal fade" id="commentModal" role="dialog">
-    <div class="modal-dialog modal-lg">
+<div class="modal" id="commentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3>Kommentare zu:  <?= $this->student ?>, <?= $this->classname ?></h3>
-                <h4>Fach: <?= $this->subjectname ?></h4>
+                <div>
+                    <h3 class="d-block">Kommentare zu:  <?= $this->student ?>, <?= $this->classname ?></h3>
+                    <h4 class="d-block">Fach: <?= $this->subjectname ?></h4>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
 
             </div>
             <div class="modal-body" style="overflow-y:auto">
@@ -30,7 +33,9 @@
                             <div class="form-group input-group date">
                                 <input name="dateOfCreation" maxlength="10" type="text" class="datepicker form-control" data-date-format="yyyy-mm-dd" autocomplete="off">
                                 <div class="input-group-addon">
-                                    <span class="datepicker-icon fa fa-calendar"></span>
+                                    <button class="btn btn-primary" type="button">
+                                        <span class="datepicker-icon fa fa-calendar"></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +58,7 @@
                             $('.datepicker').datepicker({
                                 zIndexOffset: 999999,
                                 format: 'yyyy-mm-dd',
-                                language: 'de'
+                                language: 'de',
                             });
                         </script>
 
