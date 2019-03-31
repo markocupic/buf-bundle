@@ -30,7 +30,7 @@ class GdimageAjaxController extends AbstractController
     {
         $this->container->get('contao.framework')->initialize();
         $rootDir = System::getContainer()->getParameter('kernel.project_dir');
-
+die('bla');
 
         if (Input::get('generateTableHead'))
         {
