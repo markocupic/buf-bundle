@@ -15,7 +15,7 @@
     "fpdf/fpdf": "^1.81",
     "tecnickcom/tcpdf": "^6.2",
     "phpoffice/phpword": "0.16",
-    "twbs/bootstrap": "^4.3"
+    "twbs/bootstrap": "v4.3.1"
   },
   "extra": {
     "contao-manager-plugin": "Markocupic\\BufBundle\\ContaoManager\\Plugin"
