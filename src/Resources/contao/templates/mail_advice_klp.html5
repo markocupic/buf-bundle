@@ -81,7 +81,7 @@
       <h1>Beurteilen <br>und F&ouml;rdern</h1>
     </div>
     <div class="header-right">
-      <div class="image-container"><img src="http://<?= \Environment::get('host') ?>/files/buf/images/logo/logo_header.png"></img></div>
+      <div class="image-container"><img src="<?= \Environment::get('url') ?>/bundles/markocupicbuf/images/logo/logo_header.png"></img></div>
     </div>
     <div class="clearing"></div>
   </div>
