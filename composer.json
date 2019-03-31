@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Contao\\BufBundle\\": "src/"
+      "Markocupic\\BufBundle\\": "src/"
     },
     "classmap": [
       "src/Resources/contao/"
