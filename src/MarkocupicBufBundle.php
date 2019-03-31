@@ -14,6 +14,6 @@ namespace Markocupic\BufBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class BufBundle extends Bundle
+class MarkocupicBufBundle extends Bundle
 {
 }
