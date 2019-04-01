@@ -23,48 +23,6 @@ class Helper extends \Controller
 {
 
     /**
-     * Klassenlehrer benachrichtigen bei neuen Kommentaren
-     * Cron adviceOnNewComments
-     */
-    public function adviceOnNewComments()
-    {
-        $objTeacher = \TeacherModel::findAll();
-        if ($objTeacher !== null)
-        {
-            while ($objTeacher->next())
-            {
-                if ($objTeacher->adviceOnNewComments && $objTeacher->isClassTeacher && $objTeacher->class > 0)
-                {
-                    $arrMsg = array();
-                    $objCom = \Database::getInstance()->prepare('SELECT * FROM tl_comment WHERE tl_comment.student IN (SELECT id FROM tl_student WHERE tl_student.class=? AND tl_student.disable=?) AND tl_comment.adviced=? ORDER BY tl_comment.student')->execute($objTeacher->class, '', '');
-                    while ($objCom->next())
-                    {
-                        $arrMsg[] = array(
-                            'title' => 'Neuer Kommentar von ' . \TeacherModel::getFullName($objCom->teacher) . ' zu ' . \StudentModel::getFullName($objCom->student) . ' im Fach ' . \SubjectModel::getName($objCom->subject),
-                            'body'  => $objCom->comment,
-                        );
-                    }
-
-                    // Send Email
-                    if (count($arrMsg) > 0)
-                    {
-                        $objEmail = new \Email();
-                        $objEmailTemplate = new \FrontendTemplate('mail_advice_klp');
-                        $objEmailTemplate->rows = $arrMsg;
-                        $objEmail->html = $objEmailTemplate->parse();
-                        $objEmail->subject = 'Neue oder aktualisierte Kommentare im Bewertungstool vorhanden';
-                        $objEmail->from = 'webadmin@' . \Environment::get('host');
-                        $objEmail->sendTo($objTeacher->email);
-                        \System::log(\TeacherModel::getFullName($objTeacher->id) . ' wurde per email ueber neue oder veränderte Kommentare benachrichtigt.', __METHOD__, TL_GENERAL);
-                    }
-                }
-            }
-        }
-
-        \Database::getInstance()->prepare('UPDATE tl_comment %s')->set(array('adviced' => true))->execute();
-    }
-
-    /**
      * Contao replaceInsertTags Callback
      * @param $strTag
      * @return bool

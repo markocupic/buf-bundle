@@ -78,7 +78,7 @@
 <div class="wrapper">
   <div class="header">
     <div class="header-left">
-      <h1>Beurteilen <br>und F&ouml;rdern</h1>
+      <h1><?= $this->headline1 ?></h1>
     </div>
     <div class="header-right">
       <div class="image-container"><img src="<?= \Environment::get('url') ?>/bundles/markocupicbuf/images/logo/logo_header.png"></img></div>
@@ -88,11 +88,11 @@
 
   <div class="container">
     <div class="main">
-      <h2>Neue oder aktualisierte Kommentare an Sch&uuml;lern deiner Klasse</h2>
+      <h2><?= $this->headline2 ?></h2>
       <table>
         <?php foreach($this->rows as $row): ?>
-        <tr><td class="td-title"><?= $row['title'] ?></td></tr>
-        <tr><td class="td-body"><?= $row['body'] ?></td></tr>
+        <?php if(isset($row['title'])): ?><tr><td class="td-title"><?= $row['title'] ?></td></tr><?php endif; ?>
+        <?php if(isset($row['body'])): ?><tr><td class="td-body"><?= $row['body'] ?></td></tr><?php endif; ?>
         <?php endforeach; ?>
       </table>
     </div>

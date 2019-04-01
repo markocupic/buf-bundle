@@ -83,7 +83,8 @@ class AccountSettingsController extends \Frontend
             $widget->validate();
             if (!$widget->hasErrors())
             {
-                $set['password'] = $widget->value;
+                $objTeacher->password = $widget->value;
+                $objTeacher->save();
                 $submitted = true;
             }
             else
@@ -97,15 +98,25 @@ class AccountSettingsController extends \Frontend
         $objTemplate->confirmation = $widget->generateConfirmation();
 
         /** adviceOnNewComments **/
+        if ($_POST && \Input::post('FORM_SUBMIT') == 'tl_member_account_settings')
+        {
+            $objTeacher->adviceOnNewComments = \Input::post('adviceOnNewComments');
+            $objTeacher->save();
+        }
         if ($objTeacher->adviceOnNewComments)
         {
             $objTemplate->adviceOnNewCommentsChecked = ' checked';
         }
 
+        /** enableBirthdayAdvice **/
         if ($_POST && \Input::post('FORM_SUBMIT') == 'tl_member_account_settings')
         {
-            $set['adviceOnNewComments'] = \Input::post('adviceOnNewComments');
-            $submitted = true;
+            $objTeacher->enableBirthdayAdvice = \Input::post('enableBirthdayAdvice');
+            $objTeacher->save();
+        }
+        if ($objTeacher->enableBirthdayAdvice)
+        {
+            $objTemplate->enableBirthdayAdviceChecked = ' checked';
         }
 
         if ($_POST)
@@ -116,18 +127,12 @@ class AccountSettingsController extends \Frontend
         // Reload page
         if ($submitted && !$hasErrors && count($set))
         {
-            \Database::getInstance()->prepare('UPDATE tl_member %s WHERE id=?')->set($set)->execute($objTeacher->id);
             $_SESSION['submitted'] = true;
             $this->reload();
         }
 
         $objTemplate->tl_form_submit = $_SESSION['FORM_SUBMIT'] ? $_SESSION['FORM_SUBMIT'] : 'tl_account_settings';
         unset($_SESSION['FORM_SUBMIT']);
-
-        $widget->value = $objTeacher->adviceOnNewComments;
-
-        $objTemplate->adviceOnNewCommentsLabel = $widget->generateLabel();
-        $objTemplate->adviceOnNewComments = $widget->parse();
 
         // other properties
         $objTemplate->username = $objTeacher->username;

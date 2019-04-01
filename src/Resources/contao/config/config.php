@@ -57,5 +57,6 @@ $GLOBALS['TL_HOOKS']['reviseTable'][] = array('Markocupic\BufBundle\Helper', 'ch
 $GLOBALS['TL_HOOKS']['reviseTable'][] = array('Markocupic\BufBundle\Helper', 'bufReviseTable');
 
 // Cron: Klassenlehrer täglich per E-Mail über neue Kommentare benachrichtigen
-$GLOBALS['TL_CRON']['daily']['adviceOnNewComments'] = array('Markocupic\BufBundle\Helper', 'adviceOnNewComments');
+$GLOBALS['TL_CRON']['daily']['notifyOnNewComments'] = array('Markocupic\BufBundle\CommentsNotify', 'notifyOnNewComments');
+$GLOBALS['TL_CRON']['daily']['birthdayNotify'] = array('Markocupic\BufBundle\BirthdayNotify', 'birthdayNotify');
 

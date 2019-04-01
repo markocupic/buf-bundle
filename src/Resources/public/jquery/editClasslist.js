@@ -93,7 +93,8 @@
                         'class': 'text-input date-picker form-control',
                         name: 'dateOfBirth',
                         type: 'text',
-                        value: strFieldValue
+                        value: strFieldValue,
+                        placeholder: 'dd-mm-yyyy'
                     }).hide().appendTo($(this)).fadeIn();
                     window.setTimeout(function(){
 

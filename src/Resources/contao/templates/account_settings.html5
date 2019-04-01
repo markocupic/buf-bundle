@@ -44,6 +44,13 @@ Einstellungen wurden gespeichert.
                                 <input type="checkbox" name="adviceOnNewComments" value="1"<?= $this->adviceOnNewCommentsChecked ?>> Bei neuen Kommentaren benachrichtigen (gilt nur für Klassenlehrer)
                             </label>
                         </div>
+                        {{br}}
+                        {{br}}
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="enableBirthdayAdvice" value="1"<?= $this->enableBirthdayAdviceChecked ?>> Geburtstags-Erinnerungsmail-Funktion für Klassenlehrer/in aktivieren (gilt nur für Klassenlehrer)
+                            </label>
+                        </div>
                         <?php endif; ?>
                         {{br}}
                         <button type="submit" class="btn btn-primary"><?php echo $this->slabel1; ?></button>
