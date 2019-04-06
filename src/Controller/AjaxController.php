@@ -11,19 +11,20 @@
 
 namespace Markocupic\BufBundle\Controller;
 
+use Contao\CommentModel;
+use Contao\Database;
+use Contao\Date;
 use Contao\Environment;
+use Contao\FrontendTemplate;
 use Contao\FrontendUser;
 use Contao\Input;
 use Contao\StudentModel;
-use Contao\TeacherModel;
-use Contao\CommentModel;
-use Contao\VotingModel;
-use Contao\Database;
-use Contao\Date;
 use Contao\System;
+use Contao\TeacherModel;
 use Contao\Validator;
-use Contao\FrontendTemplate;
+use Contao\VotingModel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -40,7 +41,6 @@ class AjaxController extends AbstractController
      */
     public function ajaxAction()
     {
-
         $this->container->get('contao.framework')->initialize();
         $rootDir = System::getContainer()->getParameter('kernel.project_dir');
 
@@ -49,12 +49,12 @@ class AjaxController extends AbstractController
             return false;
         }
 
-        if(!Environment::get('isAjaxRequest'))
+        if (!Environment::get('isAjaxRequest'))
         {
             return false;
         }
 
-        // edit student
+        // Update classlist
         if (Input::get('act') == 'update_classlist')
         {
             $arrJSON = array();
@@ -86,29 +86,29 @@ class AjaxController extends AbstractController
                 $arrJSON['message'] = 'Ungültige Zeichenkette!';
             }
 
-            die(json_encode($arrJSON));
+            return new JsonResponse($arrJSON);
         }
 
-        // delete a student
+        // Delete a student
         if (Input::get('act') == 'delete_student')
         {
             $arrJSON = array();
             $arrJSON['status'] = 'error';
             if (TeacherModel::getOwnClass())
             {
-                // delete student
+                // Delete student
                 $objDb = Database::getInstance()->prepare('DELETE FROM tl_student WHERE id=?')->execute(Input::post('id'));
                 if ($objDb->affectedRows)
                 {
                     $arrJSON['status'] = 'success';
                 }
-                // delete referenced votings
+                // Delete referenced votings
                 Database::getInstance()->prepare('DELETE FROM tl_voting WHERE student=?')->execute(Input::post('id'));
             }
-            die(json_encode($arrJSON));
+            return new JsonResponse($arrJSON);
         }
 
-        // toggle visibility of a student
+        // Toggle visibility of a student
         if (Input::get('act') == 'toggle_student')
         {
             $arrJSON = array();
@@ -131,10 +131,10 @@ class AjaxController extends AbstractController
                     $arrJSON['disable'] = $objStudent->disable;
                 }
             }
-            die(json_encode($arrJSON));
+            return new JsonResponse($arrJSON);
         }
 
-        // reset the voting table
+        // Reset the voting table
         if (Input::get('act') == 'reset_table')
         {
             $arrTable = VotingModel::getRows(Input::get('class'), Input::get('subject'), Input::get('teacher'));
@@ -142,7 +142,7 @@ class AjaxController extends AbstractController
             die(json_encode($arrJSON));
         }
 
-        // update voting table
+        // Update voting table
         if (Input::get('act') == 'update')
         {
             $rating = VotingModel::update(Input::post('student'), Input::post('teacher'), Input::post('subject'), Input::post('skill'), Input::post('value'));
@@ -154,21 +154,20 @@ class AjaxController extends AbstractController
             {
                 $arrJSON = array('status' => 'success', 'rating' => '', 'message' => 'Invalid value submitted: ' . Input::post('value'));
             }
-            die(json_encode($arrJSON));
+            return new JsonResponse($arrJSON);
         }
 
-        // update voting table
+        // Get comment modal
         if (Input::get('act') == 'get_comment_modal')
         {
             $strModal = CommentModel::getCommentModal(Input::post('student'), Input::post('teacher'), Input::post('subject'));
             $arrJSON = array('status' => 'success', 'strModal' => $strModal);
-            die(json_encode($arrJSON));
+            return new JsonResponse($arrJSON);
         }
 
-        // new comment
+        // New comment
         if (Input::get('act') == 'new_comment')
         {
-
             $loggedInFeUser = FrontendUser::getInstance();
             $objComment = new CommentModel();
             $objComment->published = true;
@@ -198,10 +197,10 @@ class AjaxController extends AbstractController
                 $tableRows .= $objPartial->parse();
             }
             $arrJSON['tableRows'] = $tableRows;
-            die(json_encode($arrJSON));
+            return new JsonResponse($arrJSON);
         }
 
-        // delete comment
+        // Delete comment
         if (Input::get('act') == 'delete_comment')
         {
             $loggedInFeUser = FrontendUser::getInstance();
@@ -214,14 +213,12 @@ class AjaxController extends AbstractController
                     System::log('DELETE FROM tl_comment WHERE id=' . Input::post('id'), __METHOD__, TL_GENERAL);
                     $arrJSON = array();
                     $arrJSON['status'] = 'success';
-                    die(json_encode($arrJSON));
+                    return new JsonResponse($arrJSON);
                 }
             }
-
-            exit;
         }
 
-        // toggle visibility
+        // Toggle visibility
         if (Input::get('act') == 'toggle_visibility')
         {
             $loggedInFeUser = FrontendUser::getInstance();
@@ -243,14 +240,12 @@ class AjaxController extends AbstractController
                     $arrJSON['status'] = 'success';
                     $arrJSON['published'] = $objComment->published;
 
-                    die(json_encode($arrJSON));
+                    return new JsonResponse($arrJSON);
                 }
             }
-
-            exit;
         }
 
-        // get comment
+        // Get comment
         if (Input::get('act') == 'get_comment')
         {
             $objComment = CommentModel::findByPk(Input::post('id'));
@@ -260,12 +255,11 @@ class AjaxController extends AbstractController
                 $arrJSON['comment'] = html_entity_decode($arrJSON['comment']);
                 $arrJSON['status'] = 'success';
                 $arrJSON['dateOfCreation'] = Date::parse('Y-m-d', $arrJSON['dateOfCreation']);
-                die(json_encode($arrJSON));
+                return new JsonResponse($arrJSON);
             }
-            exit();
         }
 
-        // save comment
+        // Save comment
         if (Input::get('act') == 'save_comment')
         {
             $objComment = CommentModel::findByPk(Input::post('id'));
@@ -327,13 +321,12 @@ class AjaxController extends AbstractController
                         $tableRows .= $objPartial->parse();
                     }
                     $arrJSON['tableRows'] = $tableRows;
-                    die(json_encode($arrJSON));
+                    return new JsonResponse($arrJSON);
                 }
             }
-            exit();
         }
 
-        // update teacher's deviation tolerance
+        // Update teacher's deviation tolerance
         if (Input::get('act') == 'updateTeachersDeviationTolerance')
         {
             $arrJSON = array('status' => 'error', 'deviation' => '');
@@ -352,10 +345,10 @@ class AjaxController extends AbstractController
                     }
                 }
             }
-            die(json_encode($arrJSON));
+            return new JsonResponse($arrJSON);
         }
 
-        // update teacher's showCommentsNotOlderThen
+        // Update teacher's showCommentsNotOlderThen
         if (Input::get('act') == 'updateTeachersShowCommentsTimeRange')
         {
             $timeRange = Input::post('timeRange');
@@ -374,10 +367,10 @@ class AjaxController extends AbstractController
                 }
             }
 
-            die(json_encode($arrJSON));
+            return new JsonResponse($arrJSON);
         }
 
-        // delete all votings in a column or in a row
+        // Delete all votings in a column or in a row
         if (Input::get('act') == 'delete_row_or_col')
         {
             $mode = Input::post('mode');
@@ -391,10 +384,10 @@ class AjaxController extends AbstractController
                 $arrJSON = array('status' => 'error', 'intIndex' => $colOrRow);
             }
 
-            die(json_encode($arrJSON));
+            return new JsonResponse($arrJSON);
         }
 
-        // appear the info Box in the tally sheet mode
+        // Appear the info Box in the tally sheet mode
         if (Input::get('act') == 'tally_sheet')
         {
             if (VotingModel::getInfoBox(Input::post('studentId'), Input::post('skillId')))
@@ -405,7 +398,7 @@ class AjaxController extends AbstractController
             {
                 $arrJSON = array('status' => 'error', 'html' => '');
             }
-            die(json_encode($arrJSON));
+            return new JsonResponse($arrJSON);
         }
     }
 }
