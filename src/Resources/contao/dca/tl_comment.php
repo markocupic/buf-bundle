@@ -10,7 +10,7 @@
  */
 
 /**
- * Table tl_member
+ * Table tl_comment
  */
 $GLOBALS['TL_DCA']['tl_comment'] = array
 (
@@ -233,9 +233,7 @@ $GLOBALS['TL_DCA']['tl_comment'] = array
 );
 
 /**
- * Provide miscellaneous methods that are used by the data configuration array.
- *
- * @author Leo Feyer <https://github.com/leofeyer>
+ * Class tl_comment
  */
 class tl_comment extends Backend
 {

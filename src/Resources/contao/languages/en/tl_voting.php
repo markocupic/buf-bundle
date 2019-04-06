@@ -9,7 +9,7 @@
  * @license MIT
  */
 
-// fields
+// Fields
 $GLOBALS['TL_LANG']['tl_voting']['id'] = array('ID');
 $GLOBALS['TL_LANG']['tl_voting']['student'] = array('Schüler');
 $GLOBALS['TL_LANG']['tl_voting']['teacher'] = array('Lehrperson');

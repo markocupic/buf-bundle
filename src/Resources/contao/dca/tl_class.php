@@ -10,7 +10,7 @@
  */
 
 /**
- * Table tl_member
+ * Table tl_class
  */
 $GLOBALS['TL_DCA']['tl_class'] = array(
 
@@ -102,11 +102,7 @@ $GLOBALS['TL_DCA']['tl_class'] = array(
 );
 
 /**
- * Class tl_member
- * Provide miscellaneous methods that are used by the data configuration array.
- * @copyright  Leo Feyer 2005-2014
- * @author     Leo Feyer <https://contao.org>
- * @package    Core
+ * Class tl_class
  */
 class tl_class extends Backend
 {

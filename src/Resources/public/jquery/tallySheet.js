@@ -55,9 +55,9 @@
          */
         this.fireRequest = function (studentId, skillId) {
 
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=tally_sheet',
+                url: url + '?act=tally_sheet',
                 method: 'post',
                 data: {
                     studentId: studentId,

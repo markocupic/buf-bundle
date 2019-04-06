@@ -9,7 +9,11 @@
  * @license MIT
  */
 
-$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{beurteilen_und_foerdern_legend},buf_name_school,buf_encode_params';
+// Extend the default palette
+Contao\CoreBundle\DataContainer\PaletteManipulator::create()
+    ->addLegend('beurteilen_und_foerdern_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
+    ->addField(array('buf_name_school', 'buf_encode_params'), 'beurteilen_und_foerdern_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
+    ->applyToPalette('default', 'tl_settings');
 
 /**
  * Add fields

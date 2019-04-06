@@ -9,7 +9,7 @@
  * @license MIT
  */
 
-// fields
+// Fields
 $GLOBALS['TL_LANG']['tl_subject']['id'] = array('ID');
 $GLOBALS['TL_LANG']['tl_subject']['name'] = array('Fachname');
 $GLOBALS['TL_LANG']['tl_subject']['acronym'] = array('Fachabkürzung');

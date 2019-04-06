@@ -79,9 +79,9 @@
         this.deleteEntries = function (elLink, intValue, mode) {
             intValue = intValue.toString();
             if (!self.userIsOwner) return;
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=delete_row_or_col',
+                url: url + '?act=delete_row_or_col',
                 method: "post",
                 data: {
                     REQUEST_TOKEN: self.request_token,
@@ -123,9 +123,9 @@
                     intValue = 0;
                 }
 
-                var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+                var url = '_ajax';
                 var request = $.ajax({
-                    url: url + '?isAjax=true&act=update',
+                    url: url + '?act=update',
                     method: 'post',
                     data: {
                         REQUEST_TOKEN: self.request_token,
@@ -241,9 +241,9 @@
          * @param studentId
          */
         this.getCommentModal = function (elementClick, studentId) {
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=get_comment_modal',
+                url: url + '?act=get_comment_modal',
                 method: 'post',
                 data: {
                     REQUEST_TOKEN: self.request_token,
@@ -279,9 +279,9 @@
 
             var id = $(elementClick).closest('tr').attr('data-id');
 
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=toggle_visibility',
+                url: url + '?act=toggle_visibility',
                 method: 'post',
                 data: {
                     REQUEST_TOKEN: self.request_token,
@@ -328,9 +328,9 @@
             var subject = $(elementClick).closest('tr').attr('data-subject');
             var student = $(elementClick).closest('tr').attr('data-student');
 
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=get_comment',
+                url: url + '?act=get_comment',
                 method: 'post',
                 data: {
                     REQUEST_TOKEN: self.request_token,
@@ -385,9 +385,9 @@
             }
 
 
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=save_comment',
+                url: url + '?act=save_comment',
                 method: 'post',
                 data: {
                     REQUEST_TOKEN: self.request_token,
@@ -425,9 +425,9 @@
         this.newComment = function (subject, student) {
             $('#commentForm textarea').text('').val('');
 
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=new_comment',
+                url: url + '?act=new_comment',
                 method: 'post',
                 data: {
                     REQUEST_TOKEN: self.request_token,
@@ -470,9 +470,9 @@
             }
 
             var id = $(elementClick).closest('tr').attr('data-id');
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=delete_comment',
+                url: url + '?act=delete_comment',
                 method: 'post',
                 data: {
                     REQUEST_TOKEN: self.request_token,
@@ -508,9 +508,9 @@
 
             $(elRange).attr('title', 'Abweichungstoleranz: ' + elRange.value);
 
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=updateTeachersDeviationTolerance',
+                url: url + '?act=updateTeachersDeviationTolerance',
                 method: "post",
                 data: {
                     REQUEST_TOKEN: self.request_token,
@@ -552,9 +552,9 @@
                 $(this).css({'background-image': "url('_gdimage?bgcolor=bright&kriterium=" + i + "')"});
             });
 
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=reset_table&class=' + self.class + '&subject=' + self.subject + '&teacher=' + self.teacher,
+                url: url + '?act=reset_table&class=' + self.class + '&subject=' + self.subject + '&teacher=' + self.teacher,
                 method: 'post',
                 data: {
                     REQUEST_TOKEN: self.request_token

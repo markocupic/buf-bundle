@@ -35,8 +35,9 @@
          */
         this.updateTeachersShowCommentsTimeRange = function (elSelect) {
             var timeRange = $(elSelect).prop('value');
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;             var request = $.ajax({
-                url: url + '?isAjax=true&act=updateTeachersShowCommentsTimeRange',
+            var url = '_ajax';
+            var request = $.ajax({
+                url: url + '?act=updateTeachersShowCommentsTimeRange',
                 method: "post",
                 data: {
                     REQUEST_TOKEN: self.request_token,

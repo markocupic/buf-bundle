@@ -12,10 +12,10 @@
 namespace Markocupic\BufBundle;
 
 /**
- * Class PHPWordController
+ * Class PhpWordController
  * @package Markocupic\BufBundle
  */
-class PHPWordController extends \System
+class PhpWordController extends \System
 {
 
     /**
@@ -24,7 +24,7 @@ class PHPWordController extends \System
     protected $objMainController;
 
     /**
-     * PHPWordController constructor.
+     * PhpWordController constructor.
      * @param $objMainController
      */
     public function __construct($objMainController)

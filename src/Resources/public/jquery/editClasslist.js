@@ -96,13 +96,13 @@
                         value: strFieldValue,
                         placeholder: 'dd-mm-yyyy'
                     }).hide().appendTo($(this)).fadeIn();
-                    window.setTimeout(function(){
+                    window.setTimeout(function () {
 
                         $(".date-picker").datepicker({
                             format: self.dateFormat,
                             autoclose: true,
                         })
-                    },400);
+                    }, 400);
                 }
 
                 if ($(this).hasClass('col_gender')) {
@@ -124,7 +124,7 @@
                     }
                     $(elInputGender).hide().appendTo($(this)).fadeIn();
 
-            }
+                }
             });
         };
 
@@ -134,11 +134,12 @@
          */
         this.toggleRow = function (elButton) {
 
-            var intStudentId = $(elButton).attr('data-id');
+            var elRow = $(elButton).closest('tr[data-id]');
+            var intStudentId = $(elRow).attr('data-id');
 
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=toggle_student',
+                url: url + '?act=toggle_student',
                 method: 'post',
                 data: {
                     id: intStudentId,
@@ -150,14 +151,13 @@
                 if (json) {
                     if (json.status == 'success') {
 
-                       if(json.disable == '1')
-                       {
-                           $(elButton).find('.fa').removeClass('fa-eye');
-                           $(elButton).find('.fa').addClass('fa-eye-slash');
-                       }else{
-                           $(elButton).find('.fa').removeClass('fa-eye-slash');
-                           $(elButton).find('.fa').addClass('fa-eye');
-                       }
+                        if (json.disable == '1') {
+                            $(elButton).find('.fa').removeClass('fa-eye');
+                            $(elButton).find('.fa').addClass('fa-eye-slash');
+                        } else {
+                            $(elButton).find('.fa').removeClass('fa-eye-slash');
+                            $(elButton).find('.fa').addClass('fa-eye');
+                        }
                     }
                     if (json.status == 'error') {
                         alert('Beim Versuch den Datensatz zu ändern, kam es zu einem Fehler.');
@@ -193,7 +193,6 @@
          * @private
          */
         var _sortTable = function () {
-
             var arrRows = [];
             var i = 0;
             $('tr.row_student').each(function () {
@@ -205,21 +204,21 @@
                     'firstname': $(this).find('td.col_2 .content').text(),
                     'gender': $(this).find('td.col_3 .content').text(),
                     'dateOfBirth': $(this).find('td.col_4 .content').text(),
-                    'data-id': $(this).find('td.col_5 .edit_row').attr('data-id')
+                    'data-id': $(this).attr('data-id')
                 };
+                console.log(arrRows[i]);
                 i++;
             });
             arrRows.sort(_dynamicSort('sortString'));
 
             // Insert rows in a correct alphabetical order
             $('tr.row_student').each(function (key) {
+                $(this).attr('data-id', arrRows[key]['data-id']);
                 $(this).find('.col_0').text(key + 1);
                 $(this).find('.col_1 .content').text(arrRows[key]['lastname']);
                 $(this).find('.col_2 .content').text(arrRows[key]['firstname']);
                 $(this).find('.col_3 .content').text(arrRows[key]['gender']);
                 $(this).find('.col_4 .content').text(arrRows[key]['dateOfBirth']);
-                $(this).find('.col_5 .delete_row').attr('data-id', arrRows[key]['data-id']);
-                $(this).find('.col_6 .edit_row').attr('data-id', arrRows[key]['data-id']);
             });
         };
 
@@ -248,15 +247,17 @@
          */
         this.deleteRow = function (elButton) {
 
-
-            if (!confirm('Sollen der Schüler und die mit ihm verknüpften Bewertungen unwiderruflich gelöscht werden?')) {
+            var elRow = $(elButton).closest('tr[data-id]');
+            var firstname = elRow.find('.col_firstname .content').text();
+            var lastname = elRow.find('.col_lastname .content').text();
+            if (!confirm('Soll der Schüler "' + firstname + ' ' + lastname + '" und die mit ihm verknüpften Bewertungen/Kommentare unwiderruflich gelöscht werden?')) {
                 return;
             }
-            var intStudentId = $(elButton).attr('data-id');
 
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            var intStudentId = $(elRow).attr('data-id');
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=delete_student',
+                url: url + '?act=delete_student',
                 method: 'post',
                 data: {
                     id: intStudentId,
@@ -285,13 +286,12 @@
          * @param elButton
          */
         this.submitRow = function (elButton) {
-            var intStudentId = $(elButton).attr('data-id');
-            var elRow = $(elButton).closest('tr');
+            var elRow = $(elButton).closest('tr[data-id]');
+            var intStudentId = $(elRow).attr('data-id');
             var lastname = $(elRow).find('.col_lastname input').val().trim();
             var firstname = $(elRow).find('.col_firstname input').val().trim();
             var gender = $(elRow).find('.col_gender select').val();
             var dateOfBirth = $(elRow).find('.col_dateOfBirth input').val();
-
 
             var blnError = false;
             if (firstname == '' || lastname == '') {
@@ -303,8 +303,7 @@
                 alert('Zeichenkette enthält ungültige Zeichen. Bitte einen gültigen Vornamen eingeben!');
                 blnError = true;
             }
-            if(dateOfBirth.toString() !== '')
-            {
+            if (dateOfBirth.toString() !== '') {
                 if (!dateOfBirth.toString().match(/^\s*(3[01]|[12][0-9]|0?[1-9])\-(1[012]|0?[1-9])\-((?:19|20)\d{2})\s*$/)) {
                     alert('Zeichenkette enthält ungültige Zeichen. Bitte ein gültiges Datum im Format ' + self.dateFormat + ' eingeben!');
                     blnError = true;
@@ -315,10 +314,11 @@
                 alert('Zeichenkette enthält ungültige Zeichen. Bitte einen gültigen Nachnamen eingeben!');
                 blnError = true;
             }
-            if (blnError)return;
-            var url = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+            console.log(lastname + ' ' + intStudentId);
+            if (blnError) return;
+            var url = '_ajax';
             var request = $.ajax({
-                url: url + '?isAjax=true&act=update_classlist',
+                url: url + '?act=update_classlist',
                 method: 'post',
                 data: {
                     id: intStudentId,

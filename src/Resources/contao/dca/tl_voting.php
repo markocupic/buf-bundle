@@ -10,7 +10,7 @@
  */
 
 /**
- * Table tl_member
+ * Table tl_voting
  */
 $GLOBALS['TL_DCA']['tl_voting'] = array
 (
@@ -277,9 +277,7 @@ $GLOBALS['TL_DCA']['tl_voting'] = array
 );
 
 /**
- * Provide miscellaneous methods that are used by the data configuration array.
- *
- * @author Leo Feyer <https://github.com/leofeyer>
+ * Class tl_voting
  */
 class tl_voting extends Backend
 {

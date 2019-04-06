@@ -10,7 +10,7 @@
  */
 
 /**
- * Table tl_member
+ * Table tl_subject
  */
 $GLOBALS['TL_DCA']['tl_subject'] = array
 (

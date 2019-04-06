@@ -10,7 +10,7 @@
  */
 
 /**
- * Table tl_member
+ * Table tl_student
  */
 $GLOBALS['TL_DCA']['tl_student'] = array
 (
@@ -202,9 +202,7 @@ $GLOBALS['TL_DCA']['tl_student'] = array
 );
 
 /**
- * Provide miscellaneous methods that are used by the data configuration array.
- *
- * @author Leo Feyer <https://github.com/leofeyer>
+ * Class tl_student
  */
 class tl_student extends Backend
 {

@@ -9,7 +9,7 @@
  * @license MIT
  */
 
-// fields
+// Fields
 $GLOBALS['TL_LANG']['tl_class']['id'] = array('ID');
 $GLOBALS['TL_LANG']['tl_class']['name'] = array('Klassenbezeichnung');
 

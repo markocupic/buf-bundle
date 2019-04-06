@@ -9,5 +9,5 @@
  * @license MIT
  */
 
-// lang config
+// Messages
 $GLOBALS['TL_LANG']['MSC']['newPasswordSet'] = 'Dein Passwort wurde aktualisiert.';
