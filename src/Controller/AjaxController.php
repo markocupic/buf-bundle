@@ -139,7 +139,7 @@ class AjaxController extends AbstractController
         {
             $arrTable = VotingModel::getRows(Input::get('class'), Input::get('subject'), Input::get('teacher'));
             $arrJSON = array('status' => 'success', 'rows' => $arrTable['Datensaetze']);
-            die(json_encode($arrJSON));
+            return new JsonResponse($arrJSON);
         }
 
         // Update voting table
