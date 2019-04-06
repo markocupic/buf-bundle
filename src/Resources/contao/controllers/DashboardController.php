@@ -66,7 +66,6 @@ class DashboardController extends \Frontend
             );
         }
 
-        //die(print_r($arrVotings,true));
         $objClass = \Database::getInstance()->query('SELECT * FROM tl_class');
         while ($objClass->next())
         {
