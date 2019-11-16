@@ -45,7 +45,7 @@ class EditClasslistController extends \Frontend
         {
             foreach ($_POST['insert_lastname'] as $k => $v)
             {
-                if (!\Validator::isAlphabetic($_POST['insert_lastname'][$k]) || !\Validator::isAlphabetic($_POST['insert_firstname'][$k]))
+                if ($_POST['insert_lastname'][$k] == '' || $_POST['insert_lastname'][$k] == '')
                 {
                     continue;
                 }

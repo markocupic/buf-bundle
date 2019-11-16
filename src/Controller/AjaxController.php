@@ -58,7 +58,7 @@ class AjaxController extends AbstractController
         if (Input::get('act') == 'update_classlist')
         {
             $arrJSON = array();
-            if (Validator::isAlphabetic(Input::post('lastname')) && Validator::isAlphabetic(Input::post('firstname')))
+            if (Input::post('lastname') != '' && Input::post('lastname') != '')
             {
                 $objStudent = StudentModel::findByPk(Input::post('id'));
                 if ($objStudent !== null)
