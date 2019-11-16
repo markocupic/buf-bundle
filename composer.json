@@ -11,7 +11,7 @@
   ],
   "require": {
     "php": "^7.1",
-    "contao/core-bundle": "^4.7",
+    "contao/core-bundle": "^4.8",
     "fpdf/fpdf": "^1.81",
     "tecnickcom/tcpdf": "^6.2",
     "phpoffice/phpword": "0.16",
